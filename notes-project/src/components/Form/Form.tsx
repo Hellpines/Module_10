@@ -5,6 +5,7 @@ import { FormProps } from '../../types/FormProps'
 import { useState } from 'react';
 import letterIcon from '../../assets/icons/letter-icon.svg'
 import eyeIcon from '../../assets/icons/eye.svg'
+import { NavLink } from 'react-router-dom';
 
 function Form({ submitForm, legendTitle, legendSubTitle, submitButtonTitle, isSignUp, redirectText, hrefLink, hrefLinkText, email, password, setEmail, setPassword }: FormProps) {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -67,7 +68,7 @@ function Form({ submitForm, legendTitle, legendSubTitle, submitButtonTitle, isSi
                     By clicking continue, you agree to our <span>Terms of Service</span> and <span>Privacy Policy</span>
                 </p>
             }
-            <p className={style.text_redirect}>{redirectText} <a href={hrefLink}>{hrefLinkText}</a></p>
+            <p className={style.text_redirect}>{redirectText} <NavLink to={hrefLink}>{hrefLinkText}</NavLink></p>
         </form>
     )
 }

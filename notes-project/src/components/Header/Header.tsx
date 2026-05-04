@@ -26,8 +26,8 @@ function Header({ pageType }: HeaderProps) {
             />
             {pageType === 'NotAuthorized' && (
                 <div className={style.auth_links}>
-                    <a href='/signup'>Sign Up</a>
-                    <a href='/signin'>Sign In</a>
+                    <NavLink to='/signup'>Sign Up</NavLink>
+                    <NavLink to='/signin'>Sign In</NavLink>
                 </div>
             )}
 
