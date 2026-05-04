@@ -1,0 +1,18 @@
+.textarea {
+    padding: 14px;
+    background: #fff;
+    border: 1px solid #E0E2E7;
+    border-radius: 8px;
+    color: #1B2037;
+    font-family: 'Poppins';
+    resize: none;
+
+    &::placeholder {
+        color: #667085;
+    }
+}
+
+.textarea:focus {
+    outline: none;
+    border: 1px solid #7A44FF;
+}

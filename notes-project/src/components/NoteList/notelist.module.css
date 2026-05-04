@@ -1,0 +1,12 @@
+.note_list {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .note_list {
+        justify-content: center;
+    }
+}

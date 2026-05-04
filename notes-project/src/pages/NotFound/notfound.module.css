@@ -1,0 +1,39 @@
+.main {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 47px;
+
+    & p {
+        font: 600 60px 'Inter';
+        color: #1B2037;
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        & img {
+            width: 100px;
+        }
+
+        & p {
+            font-size: 36px;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .main {
+        & img {
+            width: 80px;
+        }
+
+        & p {
+            font-size: 20px;
+        }
+    }
+}

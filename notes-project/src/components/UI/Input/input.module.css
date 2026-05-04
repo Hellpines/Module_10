@@ -1,0 +1,28 @@
+.custom_input {
+    padding: 14px;
+    background: #fff;
+    border: 1px solid #E0E2E7;
+    border-radius: 8px;
+    color: #1B2037;
+    font-family: 'Poppins';
+
+
+
+    &::placeholder {
+        color: #667085;
+    }
+}
+
+.custom_input:focus {
+    outline: none;
+    border: 1px solid #7A44FF;
+}
+
+.error {
+    border: 1px solid red;
+    color: red;
+}
+
+.error::placeholder {
+    color: red;
+}

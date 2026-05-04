@@ -1,0 +1,30 @@
+.aside {
+    height: 86vh;
+    font: 400 18px 'Poppins';
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px;
+    gap: 8px;
+
+    & a {
+        padding: 8px;
+        width: 304px;
+        text-decoration: none;
+        color: #1B2037;
+        border-radius: 8px;
+
+        &:hover {
+            background: #F0F1F3;
+        }
+    }
+    
+    & .active {
+        background: #F0F1F3;
+    }
+}
+
+@media (max-width: 768px) {
+    .aside {
+        display: none;
+    }
+}

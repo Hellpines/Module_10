@@ -1,0 +1,58 @@
+form {
+    text-align: center;
+    width: 327px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font: 400 14px 'Poppins';
+    color: #1B2037;
+
+    & .legend_block {
+        max-width: 221px;
+        align-self: center;
+
+        & p:first-child {
+            font: 600 18px 'Poppins';
+            margin-bottom: 2px;
+        }
+    } 
+
+    & .text_agreement {
+        font-size: 12px;
+        color:#667085;
+
+        & span {
+            color:#1B2037;
+        }
+    }
+
+    & .text_redirect {
+        & a {
+            color: #1B2037;
+        }
+    }
+}
+
+.inputs {
+    text-align: left;
+    & .input {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        &:first-child {
+            margin-bottom: 16px;
+        }
+
+        & label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+}
+
+.submit_button {
+    color: #fff;
+    width: 100%;
+}

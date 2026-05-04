@@ -1,0 +1,137 @@
+.modal_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1B203780;
+    font: 400 14px 'Poppins';
+    z-index: 1;
+    backdrop-filter: blur(10px);
+}
+
+.modal {
+    background: #FAFAFA;
+    border: 1px solid #E0E2E7;
+    width: 800px;
+    border-radius: 8px;
+    padding: 24px;
+    top: 112px;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+
+    & .modal_title {
+        font-size: 36px;
+        margin-bottom: 24px;
+    }
+}
+
+.close_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 24px;
+    top: 38px;
+}
+
+.wrapper_button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirm_button {
+    color: #fff;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    & .input_wrapper {
+        display: flex;
+        flex-direction: column;
+
+        & label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        & .input_title {
+            max-width: 327px;
+        }
+        
+        & .input_description {
+            padding-bottom: 24px;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .modal_wrapper {
+        top: 60px;
+        height: calc(100% - 60px);
+    }
+    
+    .modal {
+        width: 500px;
+    }
+    
+}
+
+@media (max-width: 900px) {
+    .modal {
+        padding: 12px;
+
+        & .modal_title {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .close_button {
+        right: 12px;
+        top: 22px;
+
+        & img {
+            width: 16px;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .modal {
+        width: 350px;
+
+        & .modal_title {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .close_button {
+        right: 12px;
+        top: 16px;
+
+        & img {
+            width: 16px;
+        }
+    }
+}
+
+@media (max-width: 370px) {
+    .modal {
+        width: 300px;
+
+        & .modal_title {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+    }
+}
