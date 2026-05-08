@@ -1,0 +1,16 @@
+import { Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { ProtectedRouteProps } from '../../types/ProtectedRouteProps';
+
+function PublicRoute({ children }: ProtectedRouteProps) {
+    const auth = useContext(AuthContext);
+
+    if (auth?.currentUser) {
+        return <Navigate to='/' replace />;
+    }
+
+    return children;
+}
+
+export default PublicRoute;

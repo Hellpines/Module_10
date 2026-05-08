@@ -7,6 +7,7 @@ import SignIn from './pages/Sign/SignIn';
 import SignUp from './pages/Sign/SignUp';
 import NoAuthPage from './pages/NoAuth/NoAuthPage';
 import NotFound from './pages/NotFound/NotFound';
+import PublicRoute from './components/PublicRoute/PublicRoute';
 
 function App() {
     return (
@@ -38,10 +39,34 @@ function App() {
                 }
             />
 
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/noauth' element={<NoAuthPage />} />
-            <Route path='*' element={<NotFound />} />
+            <Route
+                path='/signin'
+                element={
+                    <PublicRoute>
+                        <SignIn />
+                    </PublicRoute>
+                }
+            />
+            <Route
+                path='/signup'
+                element={
+                    <PublicRoute>
+                        <SignUp />
+                    </PublicRoute>
+                }
+            />
+            <Route
+                path='/noauth'
+                element={
+                    <PublicRoute>
+                        <NoAuthPage />
+                    </PublicRoute>
+                }
+            />
+            <Route
+                path='*'
+                element={<NotFound />}
+            />
         </Routes>
     )
 }
