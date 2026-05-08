@@ -54,10 +54,12 @@ function Header({ pageStatus }: HeaderProps) {
                         <div className={style.burgerMenuHeader}>
                             <Logo className={style.mobileLogo} />
                             {pageStatus === 'Authorized' && <img src={avatar} alt='avatar' />}
-                            <Button
-                                onClick={() => authContext?.signOut()}
-                                title='logout'
-                            />
+                            {pageStatus === 'Authorized' &&
+                                <Button
+                                    onClick={() => authContext?.signOut()}
+                                    title='logout'
+                                />
+                            }
                         </div>
                         <div className={style.burgerMenuLinks}>
                             <Aside pageStatus={pageStatus} className={style.burgerMenuAside} />
