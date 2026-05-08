@@ -1,0 +1,18 @@
+.textArea {
+    padding: 14px;
+    background: var(--bg-input-textarea);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-m);
+    color: var(--text-primary);
+    font-family: var(--font-poppins);
+    resize: none;
+
+    &:focus {
+        outline: none;
+        border: 1px solid var(--focus-border);
+    }
+
+    &::placeholder {
+        color: var(--text-secondary);
+    }
+}

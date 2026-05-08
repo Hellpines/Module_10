@@ -1,0 +1,1 @@
+export type PageStatusType = 'Authorized' | 'NotAuthorized' | 'Error';

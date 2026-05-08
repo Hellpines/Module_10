@@ -1,0 +1,32 @@
+.aside {
+    background: var(--bg-aside);
+    font: 400 18px var(--font-poppins);
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px;
+    gap: 8px;
+    width: 320px;
+
+    & a {
+        padding: 8px;
+        width: 100%;
+        text-decoration: none;
+        color: var(--link-color);
+        border-radius: var(--radius-m);
+        background: var(--bg-link);
+        
+        &:hover {
+            background: var(--bg-link-hover);
+        }
+    }
+    
+    & .active {
+        background: var(--bg-link-hover);
+    }
+}
+
+@media (max-width: 768px) {
+    .aside {
+        display: none;
+    }
+}

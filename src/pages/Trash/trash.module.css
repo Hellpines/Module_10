@@ -1,0 +1,11 @@
+.wrapperButton {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+    .wrapperButton {
+        justify-content: center;
+    }
+}

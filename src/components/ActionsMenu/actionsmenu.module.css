@@ -1,0 +1,29 @@
+.actionsMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 30px;
+    width: 200px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-m);
+    z-index: 2;
+    padding: 8px;
+
+    & .actionItem {
+        font: 400 18px var(--font-poppins);
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        text-align: left;
+    }
+}
+
+@media (max-width: 768px) {
+    .actionsMenu {
+        top: 12px;
+        right: 24px;
+    }
+}

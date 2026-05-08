@@ -1,0 +1,85 @@
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.customInput {
+    width: 100%;
+    padding: 14px;
+    padding-right: 90px;
+    background: var(--bg-input-textarea);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-m);
+    color: var(--text-primary);
+    font-weight: 400;
+    font-family: var(--font-poppins);
+
+    &:focus {
+        outline: none;
+        border-color: var(--focus-border);
+    }
+
+    &::placeholder {
+        color: var(--text-secondary);
+    }
+}
+
+.error {
+    border-color: var(--error-color);
+    color: var(--error-color);
+
+    & .error::placeholder {
+        color: var(--error-color);
+    }
+}
+
+.validationIcon {
+    position: absolute;
+    right: 0px;
+    top: -28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.eyeButton {
+    position: absolute;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    & .eyeIcon {
+        color: var(--svg-color);
+    }
+}
+
+.messageContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+
+    & .errorMessage {
+        color: var(--error-color);
+    }
+    
+    & .successMessage {
+        color: var(--accent);
+    }
+}

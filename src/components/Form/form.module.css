@@ -1,0 +1,63 @@
+.form {
+    text-align: center;
+    width: 327px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font: 400 14px var(--font-poppins);
+    color: var(--text-primary);
+
+    & .legendBlock {
+        max-width: 220px;
+        align-self: center;
+
+        & p:first-child {
+            font: 600 18px var(--font-poppins);
+            margin-bottom: 2px;
+        }
+    } 
+
+    & .textAgreement {
+        font-size: 12px;
+        color:var(--text-secondary);
+
+        & span {
+            color: var(--overlay-color);
+        }
+    }
+
+    & .textRedirect {
+        & a {
+            color:  var(--overlay-color);
+        }
+    }
+}
+
+.inputs {
+    text-align: left;
+
+    & .input {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        
+        
+        &:first-child {
+            margin-bottom: 16px;
+        }
+        
+        & input {
+            background: var(--bg-input-textarea-form);
+        }
+        
+        & label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            & .letterIcon, .eyeIcon {
+                color: var(--svg-color);
+            }
+        }
+    }
+}

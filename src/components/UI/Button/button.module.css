@@ -1,0 +1,22 @@
+.button {
+    font: 400 14px var(--font-poppins);
+    background-color: var(--accent);
+    padding: 12px 48px;
+    border-radius: var(--radius-m);
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.2s;
+
+    &:hover {
+        background: #08B94E;
+    }
+
+    &:active {
+        background: #6236CC;
+    }
+
+    &:disabled {
+        background: #BCC3E3;
+    }
+}

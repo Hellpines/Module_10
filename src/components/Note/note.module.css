@@ -1,0 +1,47 @@
+.note {
+    background: var(--bg-card);
+    padding: 18px;
+    min-width: 250px;
+    min-height: 200px;
+    border-radius: var(--radius-m);
+    position: relative;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+
+    & .title {
+        font: 600 20px var(--font-inter);
+        margin-bottom: 12px;
+    }
+
+    & ol {
+        list-style: none;
+
+        & li {
+            font: 400 16px var(--font-inter);
+            margin-bottom: 4px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    & .dots {
+        background: none;
+        border: none;
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        cursor: pointer;
+
+        & .actionsIcon {
+            color: var(--svg-color);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .note {
+        width: 327px;
+    }
+}

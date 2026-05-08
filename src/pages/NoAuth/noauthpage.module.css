@@ -1,0 +1,40 @@
+.page {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    flex-direction: column;
+    gap: 24px;
+    font-family: var(--font-poppins);
+    color: var(--text-primary);
+    text-align: center;
+
+    & h1 {
+        font-weight: 400;
+        font-size: 36px;
+
+        & a {
+            text-decoration: underline 2px;
+        }
+    }
+
+    & a {
+        color: var(--text-primary);
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        & h1 {
+            font-size: 20px;
+        }
+    }
+}
