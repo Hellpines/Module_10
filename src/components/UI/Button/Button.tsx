@@ -1,5 +1,5 @@
-import { ButtonProps } from '../../../types/ButtonProps';
 import style from './button.module.css';
+import { ButtonProps } from '../../../types/ButtonProps';
 
 function Button({ title, type, onClick }: ButtonProps) {
     return (

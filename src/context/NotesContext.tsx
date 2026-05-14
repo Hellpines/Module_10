@@ -1,8 +1,8 @@
 import { createContext, useEffect, useCallback, useContext, useMemo, useState } from 'react';
 import { Note } from '../types/Note';
+import { AuthContext } from './AuthContext';
 import { NotesContextParts } from '../types/NotesContextParts';
 import { ProviderProps } from '../types/ProviderProps';
-import { AuthContext } from './AuthContext';
 
 export const NotesContext = createContext<NotesContextParts | null>(null);
 

@@ -1,10 +1,9 @@
-import Form from '../../components/Form/Form';
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import style from './sign.module.css';
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import style from './sign.module.css';
+import Form from '../../components/Form/Form';
+import Layout from '../../components/Layout/Layout';
+import { AuthContext } from '../../context/AuthContext';
 
 
 function SignUp() {
@@ -25,17 +24,16 @@ function SignUp() {
     };
 
     return (
-        <div className={style.page}>
-            <Header/>
+        <Layout pageStatus='NotAuthorized'>
             <main className={style.main}>
-                <Form 
-                    legendTitle='Create an account' 
-                    legendSubTitle='Enter your email and password to sign up for this app' 
-                    submitButtonTitle='Sign Up' 
-                    isSignUp 
-                    redirectText='Already have an account?' 
-                    hrefLink='/signin' 
-                    hrefLinkText='Sign In' 
+                <Form
+                    legendTitle='Create an account'
+                    legendSubTitle='Enter your email and password to sign up for this app'
+                    submitButtonTitle='Sign Up'
+                    isSignUp
+                    redirectText='Already have an account?'
+                    hrefLink='/signin'
+                    hrefLinkText='Sign In'
                     submitForm={submitForm}
                     email={email}
                     password={password}
@@ -43,8 +41,7 @@ function SignUp() {
                     setPassword={setPassword}
                 />
             </main>
-            <Footer/>
-        </div>
+        </Layout>
     )
 }
 

@@ -1,9 +1,9 @@
+import { useContext } from 'react';
 import style from './archived.module.css';
+import { NotesContext } from '../../context/NotesContext';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/UI/Button/Button';
 import NoteList from '../../components/NoteList/NoteList';
-import { useContext } from 'react';
-import { NotesContext } from '../../context/NotesContext';
 
 function Archived() {
     const { unarchiveAll } = useContext(NotesContext)!

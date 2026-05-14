@@ -1,6 +1,6 @@
-import Note from '../Note/Note';
-import style from './notelist.module.css';
 import { useContext, useMemo } from 'react';
+import style from './notelist.module.css';
+import Note from '../Note/Note';
 import { NotesContext } from '../../context/NotesContext';
 import { Note as NoteType } from '../../types/Note';
 import { NoteListProps } from '../../types/NoteListProps';

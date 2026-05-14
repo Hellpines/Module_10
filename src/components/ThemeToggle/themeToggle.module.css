@@ -1,10 +1,30 @@
-.toggleTheme {
-    padding: 8px 16px;
-    border-radius: var(--radius-m);
-    background-color: var(--bg-card);
+.toggleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font: 500 16px var(--font-inter);
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    font-family: var(--font-inter);
-    font-size: 14px
+}
+
+.toggleButton {
+    width: 48px;
+    padding: 4px;
+    border-radius: 16px;
+    border: none;
+    background: var(--bg-button-theme);
+    display: flex;
+    align-items: center;
+    
+    & .toggle {
+        width: 20px;
+        height: 20px;
+        background: var(--bg-toggle);
+        border-radius: 50%;
+        box-shadow: 0px 2px 2px 2px #00000029;
+        transition: 0.3s;
+    }
+
+    & .active {
+        transform: translateX(20px);
+    }
 }

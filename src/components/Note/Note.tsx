@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, useContext } from 'react';
+import style from './note.module.css';
 import ActionsMenu from '../ActionsMenu/ActionsMenu';
 import Checkbox from '../UI/Checkbox/Checkbox';
-import style from './note.module.css';
-import { NoteProps } from '../../types/NoteProps';
 import { NotesContext } from '../../context/NotesContext';
+import { NoteProps } from '../../types/NoteProps';
 import { ReactComponent as ActionsIcon } from '../../assets/icons/dots.svg';
 
 function Note({ id, title, items, handleOpenEditModal, status }: NoteProps) {

@@ -12,6 +12,9 @@
     --bg-header-footer: #FAFAFA;
     --bg-aside: #FFFFFF;
     --bg-card: #FFFFFF;
+    --bg-profile: #FAFAFA;
+    --bg-button-theme: #F0F1F3;
+    --bg-toggle: #FFFFFF;
     --bg-input-textarea: #FFFFFF;
     --bg-input-textarea-form: #FFFFFF;
     --bg-hover: #F0F1F3;
@@ -32,6 +35,9 @@
     --bg-header-footer: #0E1223;
     --bg-aside: #1B2037;
     --bg-card: #0E1223;
+    --bg-profile: #0E1223;
+    --bg-button-theme: #151A2D;
+    --bg-toggle: #FF8811;
     --bg-input-textarea: #151A2D;
     --bg-input-textarea-form: #151A2D;
     --bg-hover: #2D2E31;

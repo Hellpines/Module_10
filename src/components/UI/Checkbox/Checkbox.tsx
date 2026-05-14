@@ -1,5 +1,5 @@
-import { CheckboxProps } from '../../../types/CheckboxProps';
 import style from './checkbox.module.css';
+import { CheckboxProps } from '../../../types/CheckboxProps';
 
 function Checkbox({ checkboxId, flagCheckboxes, label, checked, onChange }: CheckboxProps) {
     return (

@@ -15,7 +15,16 @@ function Aside({ pageStatus, className }: AsideProps) {
                     }>
                         Notes
                     </NavLink>
-        
+                    
+                    <NavLink
+                        to='/profile'
+                        className={({ isActive }) => {
+                            return isActive ? style.active : ''
+                        }
+                    }>
+                        Profile
+                    </NavLink>
+
                     <NavLink
                         to='/archived'
                         className={({ isActive }) => {

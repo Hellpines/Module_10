@@ -8,6 +8,7 @@ import SignUp from './pages/Sign/SignUp';
 import NoAuthPage from './pages/NoAuth/NoAuthPage';
 import NotFound from './pages/NotFound/NotFound';
 import PublicRoute from './components/PublicRoute/PublicRoute';
+import Profile from './pages/Profile/Profile';
 
 function App() {
     return (
@@ -17,6 +18,15 @@ function App() {
                 element={
                     <ProtectedRoute>
                         <Notes />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path='/profile'
+                element={
+                    <ProtectedRoute>
+                        <Profile />
                     </ProtectedRoute>
                 }
             />

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { ModalProps } from '../../types/ModalProps';
+import style from './modal.module.css';
 import { Note } from '../../types/Note';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
 import TextArea from '../UI/TextArea/TextArea';
-import style from './modal.module.css';
 import { NotesContext } from '../../context/NotesContext';
+import { ModalProps } from '../../types/ModalProps';
 import { ReactComponent as CloseIcon } from '../../assets/icons/close-icon.svg';
 import { ReactComponent as LetterIcon } from '../../assets/icons/letter-icon.svg';
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil-icon.svg';

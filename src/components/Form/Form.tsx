@@ -1,9 +1,9 @@
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
-import style from './form.module.css';
-import { FormProps } from '../../types/FormProps'
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import style from './form.module.css';
+import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
+import { FormProps } from '../../types/FormProps'
 import { ReactComponent as LetterIcon } from '../../assets/icons/letter-icon.svg';
 import { ReactComponent as EyeIcon } from '../../assets/icons/eye.svg';
 import { ReactComponent as CheckIcon } from '../../assets/icons/check.svg';

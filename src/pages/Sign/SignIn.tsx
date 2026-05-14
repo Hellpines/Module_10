@@ -1,9 +1,8 @@
-import Form from '../../components/Form/Form';
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import style from './sign.module.css';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import style from './sign.module.css';
+import Form from '../../components/Form/Form';
+import Layout from '../../components/Layout/Layout';
 import { AuthContext } from '../../context/AuthContext';
 
 function SignIn() {
@@ -18,7 +17,7 @@ function SignIn() {
             alert('Fill all fields');
             return;
         }
-        
+
         const user = signIn(email, password);
 
         if (!user) {
@@ -30,28 +29,24 @@ function SignIn() {
     };
 
     return (
-    <div className={style.page}>
-        <Header />
-
-        <main className={style.main}>
-            <Form
-                legendTitle='Sign in into an account'
-                legendSubTitle='Enter your email and password to sign in into this app'
-                submitButtonTitle='Sign In'
-                redirectText='Forgot to create an account?'
-                hrefLink='/signup'
-                hrefLinkText='Sign Up'
-                submitForm={submitForm}
-                email={email}
-                password={password}
-                setEmail={setEmail}
-                setPassword={setPassword}
-            />
-        </main>
-
-        <Footer />
-    </div>
-)
+        <Layout pageStatus='NotAuthorized'>
+            <main className={style.main}>
+                <Form
+                    legendTitle='Sign in into an account'
+                    legendSubTitle='Enter your email and password to sign in into this app'
+                    submitButtonTitle='Sign In'
+                    redirectText='Forgot to create an account?'
+                    hrefLink='/signup'
+                    hrefLinkText='Sign Up'
+                    submitForm={submitForm}
+                    email={email}
+                    password={password}
+                    setEmail={setEmail}
+                    setPassword={setPassword}
+                />
+            </main>
+        </Layout>
+    )
 }
 
 export default SignIn

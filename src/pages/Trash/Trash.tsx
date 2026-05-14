@@ -1,9 +1,9 @@
+import { useContext } from 'react';
 import style from './trash.module.css';
 import Button from '../../components/UI/Button/Button';
 import NoteList from '../../components/NoteList/NoteList';
-import { useContext } from 'react';
-import { NotesContext } from '../../context/NotesContext';
 import Layout from '../../components/Layout/Layout';
+import { NotesContext } from '../../context/NotesContext';
 
 function Trash() {
     const { deleteAllFromTrash } = useContext(NotesContext)!;

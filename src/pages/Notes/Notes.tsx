@@ -3,9 +3,9 @@ import style from './notes.module.css';
 import Button from '../../components/UI/Button/Button';
 import NoteList from '../../components/NoteList/NoteList';
 import Modal from '../../components/Modal/Modal';
-import { Note as NoteType } from '../../types/Note';
-import { NotesContext } from '../../context/NotesContext';
 import Layout from '../../components/Layout/Layout';
+import { NotesContext } from '../../context/NotesContext';
+import { Note as NoteType } from '../../types/Note';
 
 function Notes() {
     const [isCreateMode, setCreateMode] = useState<boolean>(false)
@@ -31,39 +31,37 @@ function Notes() {
     };
 
     return (
-        <div>
-            <Layout pageStatus='Authorized'>
-                <div className={style.wrapperButton}>
-                    <Button
-                        onClick={handleOpenCreateModal}
-                        title='Create a note'
-                    />
-                </div>
-                <NoteList handleOpenEditModal={handleOpenEditModal} />
-                {isCreateMode &&
-                    <Modal
-                        isCreateMode={true}
-                        modalTitle='Create a new note'
-                        buttonTitle='Create'
-                        handleClose={handleCloseCreateModal}
-                        onSave={createNote}
-                    />
-                }
-                {isEditMode && selectedNote && selectedNote.status === 'active' && (
-                    <Modal
-                        isCreateMode={false}
-                        modalTitle='Edit note'
-                        buttonTitle='Edit'
-                        handleClose={handleCloseEditModal}
-                        onSave={editNote}
-                        noteId={selectedNote.id}
-                        title={selectedNote.title}
-                        items={selectedNote.items}
-                        status={selectedNote.status}
-                    />
-                )}
-            </Layout>
-        </div>
+        <Layout pageStatus='Authorized'>
+            <div className={style.wrapperButton}>
+                <Button
+                    onClick={handleOpenCreateModal}
+                    title='Create a note'
+                />
+            </div>
+            <NoteList handleOpenEditModal={handleOpenEditModal} />
+            {isCreateMode &&
+                <Modal
+                    isCreateMode={true}
+                    modalTitle='Create a new note'
+                    buttonTitle='Create'
+                    handleClose={handleCloseCreateModal}
+                    onSave={createNote}
+                />
+            }
+            {isEditMode && selectedNote && selectedNote.status === 'active' && (
+                <Modal
+                    isCreateMode={false}
+                    modalTitle='Edit note'
+                    buttonTitle='Edit'
+                    handleClose={handleCloseEditModal}
+                    onSave={editNote}
+                    noteId={selectedNote.id}
+                    title={selectedNote.title}
+                    items={selectedNote.items}
+                    status={selectedNote.status}
+                />
+            )}
+        </Layout>
     )
 }
 
