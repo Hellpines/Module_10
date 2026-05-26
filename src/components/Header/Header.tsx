@@ -8,6 +8,7 @@ import { HeaderProps } from '../../types/props/HeaderProps';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import { ReactComponent as BurgerMenuIcon } from '../../assets/icons/burger-menu.svg';
 import { useFocusTrap } from '../../hooks/useFocus';
+import { getAvatarPath } from '../../utils/getAvatarPath';
 
 function Header({ pageStatus }: HeaderProps) {
     const { t } = useTranslation();
@@ -16,6 +17,8 @@ function Header({ pageStatus }: HeaderProps) {
 
     const burgerMenuRef = useRef<HTMLDivElement>(null);
     const triggerRef = useRef<HTMLButtonElement>(null);
+
+    const avatarSrc = getAvatarPath(currentUser);
 
     const handleOpenBurgerMenu = () => {
         setIsOpenedBurgerMenu(true);
@@ -47,7 +50,7 @@ function Header({ pageStatus }: HeaderProps) {
             {pageStatus === 'Authorized' && (
                 <div className={style.personalShort}>
                     <img
-                        src={`./${currentUser?.profileImage}`}
+                        src={avatarSrc}
                         alt={t('header.userAvatar', { username: currentUser?.username })}
                     />
                     <p>{currentUser?.username}</p>
@@ -81,7 +84,7 @@ function Header({ pageStatus }: HeaderProps) {
                         <div className={style.burgerMenuHeader}>
                             <Logo className={style.mobileLogo} aria-hidden='true' />
                             {pageStatus === 'Authorized' && (
-                                <img src={currentUser?.profileImage} alt={t('header.avatar')} />
+                                <img src={avatarSrc} alt={t('header.avatar')} />
                             )}
                         </div>
                         <div className={style.burgerMenuLinks}>

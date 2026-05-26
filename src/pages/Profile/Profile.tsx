@@ -24,6 +24,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNotesByStatus } from '../../hooks/useNotesByStatus';
 import { ChartDataItem } from '../../types/chart/ChartDataItem';
 import { useNotification } from '../../hooks/useNotification';
+import { getAvatarPath } from '../../utils/getAvatarPath';
 
 function Profile() {
     const { t, i18n } = useTranslation();
@@ -37,7 +38,7 @@ function Profile() {
     const [email, setEmail] = useState(currentUser?.email || '');
     const [description, setDescription] = useState(currentUser?.description || '');
     const [avatarPreview, setAvatarPreview] = useState<string | undefined>(
-        currentUser?.profileImage || undefined
+        getAvatarPath(currentUser) || undefined
     );
     const [photoFile, setPhotoFile] = useState<File | null>(null);
 
