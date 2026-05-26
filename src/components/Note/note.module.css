@@ -1,0 +1,65 @@
+.note {
+    background-color: var(--bg-card);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 18px;
+    width: 250px;
+    min-height: 200px;
+    border-radius: var(--radius-m);
+    position: relative;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: 0.2s;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    &:hover {
+        border-color: var(--accent);
+        box-shadow: 0 10px 20px #00000014;
+    }
+
+    .title {
+        font: 600 1.25rem var(--font-inter);
+        margin-bottom: 12px;
+    }
+
+    ol {
+        list-style: none;
+
+        li {
+            font: 400 1rem var(--font-inter);
+            margin-bottom: 4px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .menuWrapper {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+
+        .dots {
+            background: var(--bg-card);
+            border: none;
+            cursor: pointer;
+
+            .actionsIcon {
+                color: var(--svg-color);
+            }
+        }
+    }
+}
+
+.noteListView {
+    width: 75%;
+}
+
+@media (max-width: 768px) {
+    .note {
+        width: 320px;
+    }
+}

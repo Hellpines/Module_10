@@ -1,0 +1,23 @@
+.button {
+    font: 400 0.875rem var(--font-poppins);
+    background-color: var(--accent);
+    padding: var(--padding-12) 48px;
+    border-radius: var(--radius-m);
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.2s;
+
+    &:hover {
+        background: #08b94e;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        background: #6236cc;
+    }
+
+    &:disabled {
+        background: #bcc3e3;
+    }
+}

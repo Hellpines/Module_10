@@ -1,0 +1,95 @@
+:root {
+    --font-poppins: 'Poppins', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+
+    --radius-m: 8px;
+    --padding-12: 12px;
+    --padding-24: 24px;
+    --overlay-bg: #1b203780;
+    --error-color: #ff0000;
+    --notification-error: #ff554acc;
+    --notification-success: #ff8811cc;
+    --notification-warning: #ffc14a;
+
+    --font-size-ratio: 1;
+}
+
+[data-theme='light'] {
+    --bg-main: #ffffff;
+    --bg-header-footer: #fafafa;
+    --bg-aside: #ffffff;
+    --bg-card: #ffffff;
+    --bg-profile: #fafafa;
+    --bg-button-theme: #f0f1f3;
+    --bg-toggle: #ffffff;
+    --bg-input-textarea: #ffffff;
+    --bg-input-textarea-form: #ffffff;
+    --bg-hover: #f0f1f3;
+
+    --text-primary: #1b2037;
+    --text-secondary: #667085;
+    --accent: #ff8811;
+    --link-color: #1b2037;
+    --bg-link-hover: #f0f1f3;
+    --bg-link: #ffffff;
+    --svg-color: #151a2d;
+    --focus-border: #7a44ff;
+    --border-color: #e0e2e7;
+}
+
+[data-theme='dark'] {
+    --bg-main: #1b2037;
+    --bg-header-footer: #0e1223;
+    --bg-aside: #1b2037;
+    --bg-card: #0e1223;
+    --bg-profile: #0e1223;
+    --bg-button-theme: #151a2d;
+    --bg-toggle: #ff8811;
+    --bg-input-textarea: #151a2d;
+    --bg-input-textarea-form: #151a2d;
+    --bg-hover: #2d2e31;
+
+    --text-primary: #ffffff;
+    --text-secondary: #9aa0a6;
+    --accent: #ff9f45;
+    --link-color: #8791b7;
+    --bg-link-hover: #262c49;
+    --bg-link: #0e1223;
+    --svg-color: #ffffff;
+    --focus-border: #9d74ff;
+    --border-color: #3c4043;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../public/fonts/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../public/fonts/Poppins-VariableFont_wght.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: calc(16px * var(--font-size-ratio));
+    height: 100%;
+}
+
+body {
+    max-width: 100%;
+    height: 100%;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-poppins);
+    font-size: 1rem;
+}

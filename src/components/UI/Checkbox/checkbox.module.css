@@ -1,0 +1,42 @@
+.checkboxWrapper {
+    margin-top: 5px;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkboxInput {
+    appearance: none;
+    position: relative;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: var(--radius-m);
+    border: 2px solid var(--accent);
+    margin-right: 12px;
+
+    &::after {
+        content: '✓';
+        color: #fff;
+        position: absolute;
+        left: 3px;
+        top: -3px;
+        width: 0px;
+        height: 0px;
+        font-size: 20px;
+        overflow: hidden;
+    }
+
+    &:focus {
+        outline: 4px solid #d3f4e0;
+    }
+
+    &:checked {
+        background: var(--accent);
+    }
+
+    &:checked::after {
+        width: 24px;
+        height: 24px;
+    }
+}

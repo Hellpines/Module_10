@@ -1,0 +1,226 @@
+.profileInfoWrapper {
+    display: flex;
+    gap: 24px;
+
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 24px;
+
+        img {
+            width: 64px;
+        }
+
+        .profileShortInfo {
+            p {
+                font-weight: 600;
+            }
+
+            .fileInput {
+                display: none;
+            }
+
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                text-align: left;
+                color: var(--text-secondary);
+                font: 400 1rem var(--font-inter);
+            }
+        }
+    }
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+
+        .inputWrapper {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 12px;
+                font-weight: 600;
+            }
+
+            .inputUsername,
+            .inputEmail {
+                max-width: 320px;
+            }
+
+            .inputDescription {
+                padding-bottom: 24px;
+                width: 580px;
+            }
+        }
+
+        .checklistWrapper {
+            width: 100%;
+
+            .checklistTitle {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                color: var(--text-primary);
+                font-weight: 600;
+                margin-bottom: 12px;
+
+                svg {
+                    color: var(--svg-icon);
+                }
+            }
+
+            .checklistItems {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 12px;
+
+                .checklistItem {
+                    width: 100%;
+                    display: flex;
+                    gap: 12px;
+
+                    .deleteButton {
+                        padding: var(--padding-12);
+                    }
+                }
+            }
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        .actionsTitle {
+            font-weight: 600;
+            font-size: 1.75rem;
+        }
+    }
+}
+
+.statisticsSection {
+    --profile-item-padding: 16px;
+}
+
+.statistics {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .statsCards {
+        display: flex;
+        gap: 32px;
+    }
+
+    .statsVisualization {
+        display: flex;
+        flex-direction: column;
+
+        .visualizationTitle {
+            font: 600 1.75rem var(--font-inter);
+            margin-bottom: 24px;
+        }
+
+        .visualizationGroup {
+            display: flex;
+            gap: 24px;
+        }
+    }
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .fontSize {
+        .inputLabel {
+            font: 500 0.875rem var(--font-poppins);
+            margin-bottom: 12px;
+        }
+
+        .fontSizeInput {
+            width: 200px;
+        }
+    }
+
+    .uploadFieldWrapper {
+        .fileInput {
+            display: none;
+        }
+
+        .uploadField {
+            background: none;
+            display: flex;
+            gap: 27px;
+            align-items: center;
+            border: 1px dotted var(--border-color);
+            padding: 16px 32px;
+            cursor: pointer;
+            width: 100%;
+
+            .fileIcon {
+                color: var(--svg-color);
+            }
+
+            .description {
+                font: 400 0.875rem var(--font-poppins);
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                p:first-child {
+                    color: var(--text-primary);
+                }
+
+                p:last-child {
+                    color: var(--text-secondary);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 850px) {
+    .profileInfoWrapper {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .statsCards {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .statsVisualization {
+        flex-direction: column;
+    }
+
+    .visualizationGroup {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 650px) {
+    .profileInfoWrapper .inputs .inputWrapper .inputDescription {
+        width: 320px;
+    }
+}
+
+@media (max-width: 380px) {
+    .profileInfoWrapper .inputs .inputWrapper .inputDescription {
+        width: 270px;
+    }
+}

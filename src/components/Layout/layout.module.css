@@ -1,0 +1,22 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    flex: 1;
+}
+
+.main {
+    padding: var(--padding-12) var(--padding-24);
+    width: 100%;
+    position: relative;
+}
+
+@media (max-width: 650px) {
+    .main {
+        padding: var(--padding-12);
+    }
+}

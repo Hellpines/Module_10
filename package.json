@@ -1,0 +1,91 @@
+{
+    "name": "notes-project",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@mui/icons-material": "^9.0.1",
+        "@mui/material": "^9.0.1",
+        "@reduxjs/toolkit": "^2.12.0",
+        "@sidekick-monorepo/internship-backend": "file:sidekick-monorepo-internship-backend-0.0.1.tgz",
+        "@tanstack/react-query": "^5.100.11",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^13.5.0",
+        "axios": "^1.16.1",
+        "gh-pages": "^6.3.0",
+        "i18next": "^26.2.0",
+        "i18next-browser-languagedetector": "^8.2.1",
+        "react": "^19.2.5",
+        "react-dom": "^19.2.5",
+        "react-hook-form": "^7.76.0",
+        "react-i18next": "^17.0.8",
+        "react-redux": "^9.3.0",
+        "react-router-dom": "^7.14.2",
+        "react-scripts": "^5.0.1",
+        "recharts": "^3.8.1",
+        "styled-components": "^6.4.2",
+        "web-vitals": "^2.1.4"
+    },
+    "devDependencies": {
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@types/styled-components": "^5.1.36",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-config-react-app": "^7.0.1",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.0.5",
+        "prettier": "^3.8.3",
+        "typescript": "^4.9.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "type-check": "tsc --noEmit",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "prepare": "husky",
+        "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
+        "lint": "eslint \"src/**/*.{ts,tsx}\""
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "msw": {
+        "workerDirectory": [
+            "public"
+        ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest",
+            "eslint-config-prettier"
+        ]
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js,jsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{json,md,css,scss}": [
+            "prettier --write"
+        ]
+    },
+    "homepage": "https://hellpines.github.io/Module_10"
+}

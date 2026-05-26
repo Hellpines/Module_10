@@ -1,0 +1,18 @@
+.footer {
+    background: var(--bg-header-footer);
+
+    p {
+        text-align: center;
+        padding: 20px 0;
+        font: 400 1.125rem var(--font-poppins);
+        color: var(--accent);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        p {
+            font-size: 0.875rem;
+        }
+    }
+}

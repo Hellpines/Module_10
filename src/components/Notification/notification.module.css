@@ -1,0 +1,59 @@
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification {
+    position: fixed;
+    bottom: 48px;
+    right: 48px;
+    width: 350px;
+    padding: var(--padding-24);
+    border-radius: 8px;
+    color: #fff;
+    font: 500 1.125rem var(--font-poppins);
+    word-break: break-word;
+    animation: show 0.3s ease;
+}
+
+.success {
+    background: var(--notification-success);
+}
+
+.error {
+    background: var(--notification-error);
+}
+
+.warning {
+    background: var(--notification-warning);
+    color: #000;
+}
+
+.closeButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    .closeIcon {
+        width: 8px;
+        height: 8px;
+        color: var(--svg-color);
+    }
+}
+
+@media (max-width: 1180px) {
+    .notification {
+        bottom: 12px;
+        right: 12px;
+    }
+}
