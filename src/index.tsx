@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import App from './App';
 import './i18n';
 import './index.css';
@@ -32,11 +32,11 @@ enableMocking().then(() => {
                         <AuthProvider>
                             <NotificationProvider>
                                 <NotesProvider>
-                                    <BrowserRouter>
+                                    <HashRouter>
                                         <ErrorBoundary>
                                             <App />
                                         </ErrorBoundary>
-                                    </BrowserRouter>
+                                    </HashRouter>
                                 </NotesProvider>
                             </NotificationProvider>
                         </AuthProvider>
