@@ -1,16 +1,26 @@
 import { NavLink } from 'react-router-dom';
-import style from './noauthpage.module.css';
+import { useTranslation } from 'react-i18next';
+import style from '../infoPage.module.css';
 import Layout from '../../components/Layout/Layout';
 
 function NoAuthPage() {
+    const { t } = useTranslation();
+
     return (
         <Layout pageStatus='NotAuthorized'>
-            <main className={style.main}>
-                <h1>You need to <NavLink to='/signin'>sign in</NavLink> to be able to create notes.</h1>
-                <p>Still don’t have an account? <NavLink to='/signup'>Sign up</NavLink></p>
+            <main className={style.noAuthPage}>
+                <h1>
+                    {t('noAuthPage.signInRequiredPart1')}
+                    <NavLink to='/signin'>{t('noAuthPage.signInLink')}</NavLink>
+                    {t('noAuthPage.signInRequiredPart2')}
+                </h1>
+                <p>
+                    {t('noAuthPage.signUpPrompt')}{' '}
+                    <NavLink to='/signup'>{t('noAuthPage.signUpLink')}</NavLink>
+                </p>
             </main>
         </Layout>
-    )
+    );
 }
 
-export default NoAuthPage
+export default NoAuthPage;

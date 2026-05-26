@@ -1,26 +1,24 @@
 import { useContext } from 'react';
-import style from './trash.module.css';
-import Button from '../../components/UI/Button/Button';
-import NoteList from '../../components/NoteList/NoteList';
-import Layout from '../../components/Layout/Layout';
+import { useTranslation } from 'react-i18next';
 import { NotesContext } from '../../context/NotesContext';
+import NotesStatusPage from '../../components/NotesStatusPage/NotesStatusPage';
 
 function Trash() {
-    const { deleteAllFromTrash } = useContext(NotesContext)!;
+    const { t } = useTranslation();
+    const { deleteAllFromTrash, isBulkProcessing } = useContext(NotesContext)!;
 
     return (
-        <div>
-            <Layout pageStatus='Authorized'>
-                <div className={style.wrapperButton}>
-                    <Button
-                        onClick={deleteAllFromTrash}
-                        title='Delete all'
-                    />
-                </div>
-                <NoteList page='Trash' />
-            </Layout>
-        </div>
-    )
+        <NotesStatusPage
+            status='TRASH'
+            page='Trash'
+            onBulkAction={deleteAllFromTrash}
+            isBulkProcessing={isBulkProcessing}
+            buttonTitle={t('trash.deleteAll')}
+            buttonTitleProcessing={t('trash.deletingAll')}
+            loadingLabel={t('trash.loadingTrash')}
+            emptyText={t('trash.emptyTrash')}
+        />
+    );
 }
 
-export default Trash
+export default Trash;

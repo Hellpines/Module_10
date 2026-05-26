@@ -1,48 +1,63 @@
-import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import style from './sign.module.css';
 import Form from '../../components/Form/Form';
 import Layout from '../../components/Layout/Layout';
-import { AuthContext } from '../../context/AuthContext';
-
+import { SignFormData } from '../../types/auth/SignFormData';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../../hooks/useAuth';
+import { useNotification } from '../../hooks/useNotification';
 
 function SignUp() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { signUp } = useContext(AuthContext)!;
+    const { t } = useTranslation();
+
+    const { signUp } = useAuth();
+    const { showNotification } = useNotification();
+
     const navigate = useNavigate();
 
-    const submitForm = () => {
-        const success = signUp(email, password);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<SignFormData>();
+
+    const submitForm = async (data: SignFormData) => {
+        const success = await signUp(data.email, data.password);
 
         if (!success) {
-            alert('User already exists');
+            showNotification(t('signup.userExistsError'), 'error');
             return;
         }
 
         navigate('/signin');
+        showNotification(t('signup.successMessage'), 'success');
     };
 
     return (
         <Layout pageStatus='NotAuthorized'>
             <main className={style.main}>
-                <Form
-                    legendTitle='Create an account'
-                    legendSubTitle='Enter your email and password to sign up for this app'
-                    submitButtonTitle='Sign Up'
-                    isSignUp
-                    redirectText='Already have an account?'
-                    hrefLink='/signin'
-                    hrefLinkText='Sign In'
-                    submitForm={submitForm}
-                    email={email}
-                    password={password}
-                    setEmail={setEmail}
-                    setPassword={setPassword}
-                />
+                <div role='region' aria-label={t('signup.legendTitle')}>
+                    <Form
+                        legendTitle={t('signup.legendTitle')}
+                        legendSubTitle={t('signup.legendSubTitle')}
+                        submitButtonTitle={t('signup.submitButtonTitle')}
+                        isSignUp
+                        redirectText={t('signup.redirectText')}
+                        hrefLink='/signin'
+                        hrefLinkText={t('signup.hrefLinkText')}
+                        handleSubmit={handleSubmit}
+                        onSubmit={submitForm}
+                        register={register}
+                        errors={errors}
+                        email={watch('email') || ''}
+                        password={watch('password') || ''}
+                    />
+                </div>
             </main>
         </Layout>
-    )
+    );
 }
 
-export default SignUp
+export default SignUp;

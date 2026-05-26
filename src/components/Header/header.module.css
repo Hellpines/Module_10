@@ -1,49 +1,58 @@
 .header {
-    padding: 12px 24px;
+    padding: var(--padding-12) 24px;
     background-color: var(--bg-header-footer);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font: 400 18px var(--font-poppins);
+    font: 400 1.125rem var(--font-poppins);
     color: var(--text-primary);
 
-    & .logo {
+    .logo {
         color: var(--svg-color);
     }
 
-    & .mobileLogo {
+    .mobileLogo {
         color: var(--svg-color);
         height: 24px;
     }
 
-    & .authLinks {
+    .authLinks {
         display: flex;
         gap: 24px;
 
-        & a {
+        a {
             text-decoration: none;
             color: var(--text-primary);
+            transition: 0.2s;
+
+            &:hover {
+                color: var(--accent);
+            }
         }
     }
 
-    & .personalShort {
+    .personalShort {
         display: flex;
         align-items: center;
         gap: 8px;
+
+        img {
+            width: 24px;
+        }
     }
 
-    & .burgerMenuToggle {
+    .burgerMenuToggle {
         display: none;
         background: none;
         border: none;
         cursor: pointer;
 
-        & .burgerMenuIcon {
+        .burgerMenuIcon {
             color: var(--svg-color);
         }
     }
 
-    & .burgerMenuWrapper {
+    .burgerMenuWrapper {
         position: absolute;
         top: 0;
         left: 0;
@@ -54,7 +63,7 @@
         backdrop-filter: blur(10px);
     }
 
-    & .burgerMenu {
+    .burgerMenu {
         position: absolute;
         top: 0;
         right: 0;
@@ -66,15 +75,19 @@
         border-left: 1px solid #384162;
         background: var(--bg-card);
 
-        & .burgerMenuHeader {
+        .burgerMenuHeader {
             padding: 6px 12px;
             display: flex;
             background: var(--bg-header-footer);
             justify-content: space-between;
             align-items: center;
+
+            img {
+                width: 24px;
+            }
         }
 
-        & .burgerMenuLinks {
+        .burgerMenuLinks {
             background: var(--bg-aside);
             flex: 1;
             overflow-y: auto;
@@ -83,7 +96,7 @@
             flex-direction: column;
             gap: 8px;
 
-            & .burgerMenuAside {
+            .burgerMenuAside {
                 width: 100%;
                 padding: 0;
             }
@@ -91,32 +104,32 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
     .header {
-        & .mobileLogo {
-            height: 12px;
-            width: 48px;
+        .authLinks {
+            display: none;
         }
 
-        & .burgerMenuLinks .burgerMenuAside {
+        .personalShort {
+            display: none;
+        }
+
+        .burgerMenuToggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .burgerMenuLinks .burgerMenuAside {
             display: flex;
         }
     }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 768px) {
     .header {
-        & .authLinks {
-            display: none;
-        }
-
-        & .personalShort {
-            display: none;
-        }
-
-        & .burgerMenuToggle {
-            display: flex;
-            align-items: center;
+        .mobileLogo {
+            height: 12px;
+            width: 48px;
         }
     }
 }

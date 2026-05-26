@@ -9,9 +9,8 @@
 .checkboxInput {
     appearance: none;
     position: relative;
-    width: 24px;
-    height: 24px;
-    background: none;
+    min-width: 24px;
+    min-height: 24px;
     border-radius: var(--radius-m);
     border: 2px solid var(--accent);
     margin-right: 12px;
@@ -29,12 +28,11 @@
     }
 
     &:focus {
-        outline: 4px solid #D3F4E0;
+        outline: 4px solid #d3f4e0;
     }
 
     &:checked {
         background: var(--accent);
-
     }
 
     &:checked::after {

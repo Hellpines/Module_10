@@ -1,71 +1,74 @@
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import style from './aside.module.css';
-import { AsideProps } from '../../types/AsideProps';
+import { AsideProps } from '../../types/props/AsideProps';
 
 function Aside({ pageStatus, className }: AsideProps) {
-    return (
-        <div>
-            {pageStatus === 'Authorized' ?
-                <aside className={`${style.aside} ${className}`}>
-                    <NavLink
-                        to='/'
-                        className={({ isActive }) => {
-                            return isActive ? style.active : ''
-                        }
-                    }>
-                        Notes
-                    </NavLink>
-                    
-                    <NavLink
-                        to='/profile'
-                        className={({ isActive }) => {
-                            return isActive ? style.active : ''
-                        }
-                    }>
-                        Profile
-                    </NavLink>
+    const { t } = useTranslation();
 
-                    <NavLink
-                        to='/archived'
-                        className={({ isActive }) => {
-                            return isActive ? style.active : ''
-                        }
-                    }>
-                        Archived
-                    </NavLink>
-        
-                    <NavLink
-                        to='/trash'
-                        className={({ isActive }) => {
-                            return isActive ? style.active : ''
-                        }
-                    }>
-                        Trash
-                    </NavLink>
-                </aside>
-                :
-                <aside className={`${style.aside} ${className}`}>
-                    <NavLink
-                        to='/signin'
-                        className={({ isActive }) => {
-                            return isActive ? style.active : ''
-                        }
-                    }>
-                        Sign In
-                    </NavLink>
-        
-                    <NavLink
-                        to='/signup'
-                        className={({ isActive }) => {
-                            return isActive ? style.active : ''
-                        }
-                    }>
-                        Sign Up
-                    </NavLink>
-                </aside>
-            }
-        </div>
-    )
+    return (
+        <aside>
+            <nav className={`${style.nav} ${className}`} aria-label={t('aside.navigationLabel')}>
+                <ul className={style.navList}>
+                    {pageStatus === 'Authorized' ? (
+                        <>
+                            <li>
+                                <NavLink
+                                    to='/'
+                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                >
+                                    {t('aside.notes')}
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/profile'
+                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                >
+                                    {t('aside.profile')}
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/archived'
+                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                >
+                                    {t('aside.archive')}
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/trash'
+                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                >
+                                    {t('aside.trash')}
+                                </NavLink>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li>
+                                <NavLink
+                                    to='/signin'
+                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                >
+                                    {t('aside.signIn')}
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/signup'
+                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                >
+                                    {t('aside.signUp')}
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
+                </ul>
+            </nav>
+        </aside>
+    );
 }
 
-export default Aside
+export default Aside;

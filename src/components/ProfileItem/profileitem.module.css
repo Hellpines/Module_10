@@ -1,0 +1,61 @@
+.expandContainerButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-profile);
+    border: none;
+    width: 100%;
+    color: var(--text-primary);
+    padding: var(--padding-24);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-m);
+    font: 400 1.25rem var(--font-inter);
+    margin-bottom: 12px;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    .arrowIcon,
+    .arrowIconReverted {
+        color: var(--svg-color);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .arrowIcon {
+        transform: rotate(0deg);
+    }
+
+    .arrowIconReverted {
+        transform: rotate(180deg);
+    }
+}
+
+.profileBlock {
+    border-radius: var(--radius-m);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+    border: 0px solid transparent;
+    margin-bottom: 0;
+    transition: 0.3s;
+}
+
+.open {
+    max-height: 100%;
+    opacity: 1;
+    transform: translateY(0);
+    padding: var(--profile-item-padding, 24px);
+    border: 2px solid var(--border-color);
+    margin-bottom: 32px;
+}
+
+@media (max-width: 650px) {
+    .open,
+    .expandContainerButton {
+        padding: var(--padding-12);
+    }
+}

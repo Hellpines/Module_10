@@ -4,31 +4,36 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    font: 400 14px var(--font-poppins);
+    font: 400 0.875rem var(--font-poppins);
     color: var(--text-primary);
 
-    & .legendBlock {
+    .legendBlock {
         max-width: 220px;
         align-self: center;
 
-        & p:first-child {
-            font: 600 18px var(--font-poppins);
+        p:first-child {
+            font: 600 1.125rem var(--font-poppins);
             margin-bottom: 2px;
-        }
-    } 
-
-    & .textAgreement {
-        font-size: 12px;
-        color:var(--text-secondary);
-
-        & span {
-            color: var(--overlay-color);
         }
     }
 
-    & .textRedirect {
-        & a {
-            color:  var(--overlay-color);
+    .textAgreement {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+
+        a {
+            color: var(--text-primary);
+            transition: 0.2s;
+
+            &:hover {
+                color: var(--accent);
+            }
+        }
+    }
+
+    .textRedirect {
+        a {
+            color: var(--overlay-color);
         }
     }
 }
@@ -36,26 +41,26 @@
 .inputs {
     text-align: left;
 
-    & .input {
+    .input {
         display: flex;
         flex-direction: column;
         gap: 12px;
-        
-        
+
         &:first-child {
             margin-bottom: 16px;
         }
-        
-        & input {
+
+        input {
             background: var(--bg-input-textarea-form);
         }
-        
-        & label {
+
+        label {
             display: flex;
             align-items: center;
             gap: 8px;
 
-            & .letterIcon, .eyeIcon {
+            .letterIcon,
+            .eyeIcon {
                 color: var(--svg-color);
             }
         }

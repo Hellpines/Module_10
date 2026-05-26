@@ -10,6 +10,13 @@
 }
 
 .main {
-    padding: 12px 24px;
+    padding: var(--padding-12) var(--padding-24);
     width: 100%;
+    position: relative;
+}
+
+@media (max-width: 650px) {
+    .main {
+        padding: var(--padding-12);
+    }
 }

@@ -1,7 +1,7 @@
 .button {
-    font: 400 14px var(--font-poppins);
+    font: 400 0.875rem var(--font-poppins);
     background-color: var(--accent);
-    padding: 12px 48px;
+    padding: var(--padding-12) 48px;
     border-radius: var(--radius-m);
     border: none;
     cursor: pointer;
@@ -9,14 +9,15 @@
     transition: 0.2s;
 
     &:hover {
-        background: #08B94E;
+        background: #08b94e;
+        transform: translateY(-1px);
     }
 
     &:active {
-        background: #6236CC;
+        background: #6236cc;
     }
 
     &:disabled {
-        background: #BCC3E3;
+        background: #bcc3e3;
     }
 }

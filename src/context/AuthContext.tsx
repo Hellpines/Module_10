@@ -1,132 +1,131 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
-import { users as initialUsers } from '../mocks/usersMock';
-import { AuthContextParts } from '../types/AuthContextParts';
-import { ProviderProps } from '../types/ProviderProps';
-import { User } from '../types/User';
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { logout, setToken, setUser } from '../store/authSlice';
+import { AuthContextParts } from '../types/context/AuthContextParts';
+import { ProviderProps } from '../types/props/ProviderProps';
+import { User } from '../types/auth/User';
+import { fileToBase64 } from '../utils/fileToBase64';
+import { useAuthMutations } from '../hooks/useAuthMutations';
+import { getAccessToken } from '../utils/getAccessToken';
 
 export const AuthContext = createContext<AuthContextParts | null>(null);
 
 export const AuthProvider = ({ children }: ProviderProps) => {
-    const [users, setUsers] = useState<User[]>(() => {
-        const savedUsers = localStorage.getItem('users');
-        if (!savedUsers) {
-            return initialUsers
-        };
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+    const reduxToken = useSelector((state: RootState) => state.auth.token);
+    const token = reduxToken || getAccessToken();
+    const [isAuthLoading, setIsAuthLoading] = useState<boolean>(() => !!getAccessToken());
 
-        try {
-            return JSON.parse(savedUsers);
-        } catch (error) {
-            console.error('Error with parsing of users:', error);
-            return initialUsers;
-        }
-    });
-
-    const [currentUser, setCurrentUser] = useState<User | null>(() => {
-        const savedUser = localStorage.getItem('current-user');
-        if (!savedUser) {
-            return null
-        };
-
-        try {
-            return JSON.parse(savedUser);
-        } catch (error) {
-            console.error('Error with parsing of current user:', error);
-            return null;
-        }
-    });
+    const { fetchMe, loginMutation, signUpMutation, signOutMutation, updateProfileMutation } =
+        useAuthMutations(token);
 
     useEffect(() => {
-        localStorage.setItem('users', JSON.stringify(users));
-    }, [users]);
+        const savedToken = getAccessToken();
 
-    useEffect(() => {
-        localStorage.setItem('current-user', JSON.stringify(currentUser));
-    }, [currentUser]);
+        if (savedToken && !reduxToken) {
+            dispatch(setToken(savedToken));
+        }
+    }, [reduxToken, dispatch]);
 
-    const signOut = useCallback(() => {
-        setCurrentUser(null);
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('token_expires_at');
-    }, []);
-
-    const refreshToken = useCallback(async () => {
-        const refresh = localStorage.getItem('refresh_token');
-        if (!refresh) {
-            signOut();
+    const getMe = useCallback(async () => {
+        if (!token) {
+            setIsAuthLoading(false);
             return null;
         }
 
-        await new Promise((res) => setTimeout(res, 500));
+        try {
+            const user = await fetchMe(token);
+            dispatch(setUser(user));
+            return user;
+        } catch (error) {
+            console.log('Error with getting information about profile:', error);
+            localStorage.removeItem('access_token');
+            dispatch(logout());
 
-        const newAccess = 'fake-access-' + Math.random();
-        const expiresAt = Date.now() + 60 * 1000;
+            return null;
+        } finally {
+            setIsAuthLoading(false);
+        }
+    }, [token, fetchMe, dispatch]);
 
-        localStorage.setItem('access_token', newAccess);
-        localStorage.setItem('token_expires_at', expiresAt.toString());
+    useEffect(() => {
+        let isMounted = true;
 
-        console.log('Token refreshed');
-        return newAccess;
-    }, [signOut]);
-
-    const requestWithAuth = useCallback(async (action: () => void) => {
-        const expiresAt = Number(localStorage.getItem('token_expires_at'));
-        if (expiresAt && Date.now() > expiresAt) {
-            console.warn('Access Token expired. Running 401 handling...');
-            
-            const newToken = await refreshToken();
-            if (!newToken) {
-                console.error('Refresh failed. Redirecting to login...');
-                signOut();
-                return;
+        const fetchData = async () => {
+            if (isMounted) {
+                await getMe();
             }
-        }
-
-        action();
-    }, [refreshToken, signOut]);
-
-    const signIn = useCallback((email: string, password: string) => {
-        const foundUser = users.find(user =>
-            user.email === email && user.password === password
-        );
-
-        if (!foundUser) {
-            return null
         };
 
-        localStorage.setItem('access_token', 'fake-access-' + Date.now());
-        localStorage.setItem('refresh_token', 'fake-refresh-' + Date.now());
-        localStorage.setItem('token_expires_at', (Date.now() + 10 * 1000).toString());
+        fetchData();
 
-        setCurrentUser(foundUser);
-        return foundUser;
-    }, [users]);
-
-    const signUp = useCallback((email: string, password: string) => {
-        const alreadyExists = users.some(user => user.email === email);
-        if (alreadyExists) {
-            return false;
-        }
-
-        const maxId = users.length > 0 ? Math.max(...users.map(n => Number(n.id))) : 0;
-
-        const newUser: User = {
-            id: maxId + 1,
-            email,
-            password,
-            username: `username${maxId + 1}`,
-            notes: []
+        return () => {
+            isMounted = false;
         };
+    }, [getMe]);
 
-        setUsers(prev => [...prev, newUser]);
+    const updateProfile = useCallback(
+        async (updatedData: Partial<User>, file?: File) => {
+            try {
+                let base64Image: string | undefined = undefined;
 
-        signIn(email, password);
-        return true;
-    }, [users, signIn]);
+                if (file) {
+                    base64Image = await fileToBase64(file);
+                }
 
-    return (
-        <AuthContext.Provider value={{ currentUser, setUsers, setCurrentUser, signIn, signUp, signOut, refreshToken, requestWithAuth }}>
-            {children}
-        </AuthContext.Provider>
+                const data = await updateProfileMutation.mutateAsync({ updatedData, base64Image });
+                return data;
+            } catch (error) {
+                console.error('Failed to update profile data:', error);
+                return null;
+            }
+        },
+        [updateProfileMutation]
     );
-}
+
+    const login = useCallback(
+        async (email: string, password: string) => {
+            try {
+                const data = await loginMutation.mutateAsync({ email, password });
+
+                return data.user;
+            } catch {
+                return null;
+            }
+        },
+        [loginMutation]
+    );
+
+    const signUp = useCallback(
+        async (email: string, password: string) => {
+            try {
+                await signUpMutation.mutateAsync({ email, password });
+
+                return true;
+            } catch {
+                return false;
+            }
+        },
+        [signUpMutation]
+    );
+
+    const signOut = useCallback(async () => {
+        await signOutMutation.mutateAsync();
+    }, [signOutMutation]);
+
+    const contextValue = useMemo(
+        () => ({
+            currentUser,
+            updateProfile,
+            login,
+            signUp,
+            signOut,
+            isAuthLoading,
+        }),
+        [currentUser, updateProfile, login, signUp, signOut, isAuthLoading]
+    );
+
+    return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+};

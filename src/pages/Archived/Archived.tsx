@@ -1,26 +1,24 @@
 import { useContext } from 'react';
-import style from './archived.module.css';
+import { useTranslation } from 'react-i18next';
 import { NotesContext } from '../../context/NotesContext';
-import Layout from '../../components/Layout/Layout';
-import Button from '../../components/UI/Button/Button';
-import NoteList from '../../components/NoteList/NoteList';
+import NotesStatusPage from '../../components/NotesStatusPage/NotesStatusPage';
 
 function Archived() {
-    const { unarchiveAll } = useContext(NotesContext)!
+    const { t } = useTranslation();
+    const { unarchiveAll, isBulkProcessing } = useContext(NotesContext)!;
 
     return (
-        <div>
-            <Layout pageStatus='Authorized'>
-                <div className={style.wrapperButton}>
-                    <Button
-                        onClick={unarchiveAll}
-                        title='Unarchive all'
-                    />
-                </div>
-                <NoteList page='Archived' />
-            </Layout>
-        </div>
-    )
+        <NotesStatusPage
+            status='ARCHIVED'
+            page='Archived'
+            onBulkAction={unarchiveAll}
+            isBulkProcessing={isBulkProcessing}
+            buttonTitle={t('archived.unarchiveAll')}
+            buttonTitleProcessing={t('archived.unarchivingAll')}
+            loadingLabel={t('archived.loadingArchive')}
+            emptyText={t('archived.emptyArchive')}
+        />
+    );
 }
 
-export default Archived
+export default Archived;

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 100%;
 }
 
 .inputContainer {
@@ -13,17 +14,21 @@
 .customInput {
     width: 100%;
     padding: 14px;
-    padding-right: 90px;
     background: var(--bg-input-textarea);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-m);
-    color: var(--text-primary);
-    font-weight: 400;
-    font-family: var(--font-poppins);
+    color: var(--text-secondary);
+    font: 400 0.875rem var(--font-poppins);
+    transition: 0.2s;
 
     &:focus {
         outline: none;
         border-color: var(--focus-border);
+        color: var(--text-primary);
+    }
+
+    &:hover {
+        transform: translateY(-2px);
     }
 
     &::placeholder {
@@ -35,7 +40,7 @@
     border-color: var(--error-color);
     color: var(--error-color);
 
-    & .error::placeholder {
+    .error::placeholder {
         color: var(--error-color);
     }
 }
@@ -48,7 +53,7 @@
     align-items: center;
     justify-content: center;
 
-    & svg {
+    svg {
         width: 20px;
         height: 20px;
     }
@@ -64,7 +69,7 @@
     border: none;
     cursor: pointer;
 
-    & .eyeIcon {
+    .eyeIcon {
         color: var(--svg-color);
     }
 }
@@ -73,13 +78,13 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 0.875rem;
 
-    & .errorMessage {
+    .errorMessage {
         color: var(--error-color);
     }
-    
-    & .successMessage {
+
+    .successMessage {
         color: var(--accent);
     }
 }

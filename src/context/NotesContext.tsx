@@ -1,144 +1,163 @@
-import { createContext, useEffect, useCallback, useContext, useMemo, useState } from 'react';
-import { Note } from '../types/Note';
-import { AuthContext } from './AuthContext';
-import { NotesContextParts } from '../types/NotesContextParts';
-import { ProviderProps } from '../types/ProviderProps';
+import { createContext, useCallback, useState, useEffect, useMemo } from 'react';
+import { Note } from '../types/notes/Note';
+import { NotesContextParts } from '../types/context/NotesContextParts';
+import { ProviderProps } from '../types/props/ProviderProps';
+import { useNotesMutations } from '../hooks/useNotesMutations';
 
 export const NotesContext = createContext<NotesContextParts | null>(null);
 
 export const NotesProvider = ({ children }: ProviderProps) => {
-    const { currentUser, setCurrentUser, setUsers } = useContext(AuthContext)!;
-
-    const notes = useMemo(() => {
-        return currentUser?.notes || [];
-    }, [currentUser]);
-
-    useEffect(() => {
-        localStorage.setItem('notes', JSON.stringify(notes));
-    }, [notes]);
-
-    const updateUserNotes = useCallback((updatedNotes: Note[]) => {
-        if (!currentUser) return;
-
-        const updatedUser = {
-            ...currentUser,
-            notes: updatedNotes
-        };
-
-        setCurrentUser(updatedUser);
-
-        setUsers(prev =>
-            prev.map(user => {
-                return user.id === updatedUser.id ? updatedUser : user
-            })
-        );
-    }, [currentUser, setCurrentUser, setUsers]);
-
-    const [checkboxFlags, setCheckboxFlags] = useState<Record<number, boolean>>(() => {
-        const saved = localStorage.getItem('note-checkbox-flags');
-        return saved ? JSON.parse(saved) : {};
+    const [view, setView] = useState<'grid' | 'list'>(() => {
+        const savedTheme = localStorage.getItem('notes-view');
+        return savedTheme === 'grid' || savedTheme === 'list' ? savedTheme : 'grid';
     });
 
-    useEffect(() => {
-        localStorage.setItem('note-checkbox-flags', JSON.stringify(checkboxFlags));
-    }, [checkboxFlags]);
-
-    const toggleCheckboxVisibility = useCallback((noteId: number) => {
-        setCheckboxFlags(prev => {
-            return {
-                ...prev,
-                [noteId]: !prev[noteId]
-            }
+    const handleView = useCallback(() => {
+        setView((prev) => {
+            return prev === 'grid' ? 'list' : 'grid';
         });
     }, []);
 
-    const isCheckboxVisible = useCallback((noteId: number) => {
-        return Boolean(checkboxFlags[noteId])
-    }, [checkboxFlags]);
+    useEffect(() => {
+        localStorage.setItem('notes-view', view);
+    }, [view]);
 
-    const createNote = useCallback((note: Note) => {
-        updateUserNotes([...notes, note]);
-    }, [notes, updateUserNotes]);
+    const mutations = useNotesMutations();
 
-    const editNote = useCallback((updatedNote: Note) => {
-        const updated = notes.map(note => {
-            return note.id === updatedNote.id ? updatedNote : note
-        });
+    const createTodo = useCallback(
+        (note: Note) => {
+            mutations.createTodoMutation.mutate(note);
+        },
+        [mutations.createTodoMutation]
+    );
 
-        updateUserNotes(updated);
-    }, [notes, updateUserNotes]);
+    const updateTodo = useCallback(
+        (note: Note) => {
+            mutations.updateTodoMutation.mutate(note);
+        },
+        [mutations.updateTodoMutation]
+    );
 
-    const moveToTrash = useCallback((id: number) => {
-        updateUserNotes(notes.map(note => {
-            return note.id === id ? { ...note, status: 'trash' } : note;
-        }));
-    }, [notes, updateUserNotes])
+    const moveToTrash = useCallback(
+        (id: number) => {
+            mutations.changeStatusMutation.mutate({ id, newStatus: 'TRASH' });
+        },
+        [mutations.changeStatusMutation]
+    );
 
-    const addToArchive = useCallback((id: number) => {
-        updateUserNotes(notes.map(note => {
-            return note.id === id ? { ...note, status: 'archived' } : note;
-        }));
-    }, [notes, updateUserNotes])
+    const addToArchive = useCallback(
+        (id: number) => {
+            mutations.changeStatusMutation.mutate({ id, newStatus: 'ARCHIVED' });
+        },
+        [mutations.changeStatusMutation]
+    );
 
-    const removeFromArchive = useCallback((id: number) => {
-        updateUserNotes(notes.map(note => {
-            return note.id === id ? { ...note, status: 'active' } : note;
-        }));
-    }, [notes, updateUserNotes])
+    const removeFromArchive = useCallback(
+        (noteId: number) => {
+            mutations.changeStatusMutation.mutate({ id: noteId, newStatus: 'NOTES' });
+        },
+        [mutations.changeStatusMutation]
+    );
 
     const unarchiveAll = useCallback(() => {
-        updateUserNotes(notes.map(note => {
-            if (note.status === 'archived') {
-                return { ...note, status: 'active' };
-            } else {
-                return { ...note }
-            }
-        }));
-    }, [notes, updateUserNotes]);
+        mutations.unArchiveAllMutation.mutate();
+    }, [mutations.unArchiveAllMutation]);
 
-    const deleteForever = useCallback((id: number) => {
-        updateUserNotes(notes.filter(note => note.id !== id));
-    }, [notes, updateUserNotes]);
+    const deleteTodo = useCallback(
+        (id: number) => {
+            mutations.deleteTodoMutation.mutate(id);
+        },
+        [mutations.deleteTodoMutation]
+    );
 
     const deleteAllFromTrash = useCallback(() => {
-        updateUserNotes(notes.filter(note => note.status !== 'trash'));
-    }, [notes, updateUserNotes]);
+        mutations.deleteAllFromTrashMutation.mutate();
+    }, [mutations.deleteAllFromTrashMutation]);
 
-    const toggleCheckbox = useCallback((noteId: number, itemId: number) => {
-        const updated = notes.map(note => {
-            if (note.id !== noteId) {
-                return note;
-            }
-
-            return {
-                ...note,
-                items: note.items.map(item => {
-                    return item.id === itemId ? { ...item, isChosen: !item.isChosen } : item
-                })
-            };
-        });
-
-        updateUserNotes(updated);
-    }, [notes, updateUserNotes]);
-
-    const uncheckAll = useCallback((noteId: number) => {
-        updateUserNotes(notes.map(note => {
-            if (note.id !== noteId) {
-                return note;
-            }
-
-            return {
-                ...note,
-                items: note.items.map(item => {
-                    return { ...item, isChosen: false }
-                })
-            };
-        }));
-    }, [notes, updateUserNotes]);
-
-    return (
-        <NotesContext.Provider value={{ notes, createNote, editNote, moveToTrash, addToArchive, removeFromArchive, unarchiveAll, deleteForever, toggleCheckbox, uncheckAll, deleteAllFromTrash, toggleCheckboxVisibility, isCheckboxVisible }}>
-            {children}
-        </NotesContext.Provider>
+    const toggleChecklistItem = useCallback(
+        (noteId: number, itemId: number) => {
+            mutations.toggleChecklistItemMutation.mutate({ noteId, itemId });
+        },
+        [mutations.toggleChecklistItemMutation]
     );
+
+    const uncheckAllItems = useCallback(
+        (id: number) => {
+            mutations.uncheckAllItemsMutation.mutate(id);
+        },
+        [mutations.uncheckAllItemsMutation]
+    );
+
+    const updateTodoBackground = useCallback(
+        (id: number, backgroundImage: string) => {
+            mutations.updateTodoBackgroundMutation.mutate({ id, backgroundImage });
+        },
+        [mutations.updateTodoBackgroundMutation]
+    );
+
+    const updateAllTodosBackground = useCallback(
+        (backgroundColor: string) => {
+            mutations.updateAllBackgroundsMutation.mutate(backgroundColor);
+        },
+        [mutations.updateAllBackgroundsMutation]
+    );
+
+    const isCreating = mutations.createTodoMutation.isPending;
+
+    const isUpdatingStatus = mutations.changeStatusMutation.isPending;
+
+    const isBulkProcessing = useMemo(
+        () =>
+            mutations.unArchiveAllMutation.isPending ||
+            mutations.deleteAllFromTrashMutation.isPending ||
+            mutations.updateAllBackgroundsMutation.isPending,
+        [
+            mutations.unArchiveAllMutation.isPending,
+            mutations.deleteAllFromTrashMutation.isPending,
+            mutations.updateAllBackgroundsMutation.isPending,
+        ]
+    );
+
+    const contextValue = useMemo(
+        () => ({
+            createTodo,
+            updateTodo,
+            moveToTrash,
+            addToArchive,
+            removeFromArchive,
+            unarchiveAll,
+            deleteTodo,
+            toggleChecklistItem,
+            uncheckAllItems,
+            deleteAllFromTrash,
+            updateTodoBackground,
+            updateAllTodosBackground,
+            handleView,
+            view,
+            isCreating,
+            isUpdatingStatus,
+            isBulkProcessing,
+        }),
+        [
+            createTodo,
+            updateTodo,
+            moveToTrash,
+            addToArchive,
+            removeFromArchive,
+            unarchiveAll,
+            deleteTodo,
+            toggleChecklistItem,
+            uncheckAllItems,
+            deleteAllFromTrash,
+            updateTodoBackground,
+            updateAllTodosBackground,
+            handleView,
+            view,
+            isCreating,
+            isUpdatingStatus,
+            isBulkProcessing,
+        ]
+    );
+
+    return <NotesContext.Provider value={contextValue}>{children}</NotesContext.Provider>;
 };

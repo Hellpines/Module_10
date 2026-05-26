@@ -1,63 +1,97 @@
-import { useContext, useState } from 'react';
+import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import style from './header.module.css';
 import Aside from '../Aside/Aside';
-import { AuthContext } from '../../context/AuthContext';
-import { HeaderProps } from '../../types/HeaderProps';
-import avatar from '../../assets/images/avatar.png';
+import { useAuth } from '../../hooks/useAuth';
+import { HeaderProps } from '../../types/props/HeaderProps';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import { ReactComponent as BurgerMenuIcon } from '../../assets/icons/burger-menu.svg';
+import { useFocusTrap } from '../../hooks/useFocus';
 
 function Header({ pageStatus }: HeaderProps) {
-    const authContext = useContext(AuthContext);
+    const { t } = useTranslation();
+    const { currentUser } = useAuth();
     const [isOpenedBurgerMenu, setIsOpenedBurgerMenu] = useState(false);
 
-    const handleBurgerMenu = () => {
-        setIsOpenedBurgerMenu(!isOpenedBurgerMenu)
-    }
+    const burgerMenuRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLButtonElement>(null);
+
+    const handleOpenBurgerMenu = () => {
+        setIsOpenedBurgerMenu(true);
+    };
+
+    const handleCloseBurgerMenu = () => {
+        setIsOpenedBurgerMenu(false);
+        triggerRef.current?.focus();
+    };
+
+    useFocusTrap(burgerMenuRef, isOpenedBurgerMenu, handleCloseBurgerMenu);
 
     return (
         <header className={style.header}>
-            <Logo className={`${style.logo} ${pageStatus !== 'Authorized' ? style.mobileLogo : ''}`} />
+            <NavLink to='/' aria-label={t('header.homeLink')}>
+                <Logo
+                    className={`${style.logo} ${pageStatus !== 'Authorized' ? style.mobileLogo : ''}`}
+                    aria-hidden='true'
+                />
+            </NavLink>
 
             {pageStatus === 'NotAuthorized' && (
-                <div className={style.authLinks}>
-                    <NavLink to='/signup'>Sign Up</NavLink>
-                    <NavLink to='/signin'>Sign In</NavLink>
-                </div>
+                <nav className={style.authLinks} aria-label={t('header.authNavigation')}>
+                    <NavLink to='/signup'>{t('header.signUp')}</NavLink>
+                    <NavLink to='/signin'>{t('header.signIn')}</NavLink>
+                </nav>
             )}
 
             {pageStatus === 'Authorized' && (
                 <div className={style.personalShort}>
-                    <img src={avatar} alt='avatar' />
-                    <p>{authContext?.currentUser?.username}</p>
+                    <img
+                        src={`${currentUser?.profileImage}`}
+                        alt={t('header.userAvatar', { username: currentUser?.username })}
+                    />
+                    <p>{currentUser?.username}</p>
                 </div>
             )}
 
             {pageStatus !== 'Error' && (
-                <button className={style.burgerMenuToggle} onClick={handleBurgerMenu}>
-                    <BurgerMenuIcon className={style.burgerMenuIcon} />
+                <button
+                    ref={triggerRef}
+                    className={style.burgerMenuToggle}
+                    onClick={handleOpenBurgerMenu}
+                    aria-label={t('header.burgerLabel')}
+                    aria-expanded={isOpenedBurgerMenu}
+                    aria-controls='mobile-navigation'
+                >
+                    <BurgerMenuIcon className={style.burgerMenuIcon} aria-hidden='true' />
                 </button>
             )}
 
-            {pageStatus !== 'Error' && isOpenedBurgerMenu &&
-                <div className={style.burgerMenuWrapper} onClick={() => setIsOpenedBurgerMenu(false)}>
+            {pageStatus !== 'Error' && isOpenedBurgerMenu && (
+                <div
+                    id='mobile-navigation'
+                    ref={burgerMenuRef}
+                    className={style.burgerMenuWrapper}
+                    onClick={handleCloseBurgerMenu}
+                    role='dialog'
+                    aria-modal='true'
+                    aria-label={t('header.mobileMenuTitle')}
+                >
                     <div className={style.burgerMenu} onClick={(e) => e.stopPropagation()}>
                         <div className={style.burgerMenuHeader}>
-                            <Logo className={style.mobileLogo} />
-                            {pageStatus === 'Authorized' && <img src={avatar} alt='avatar' />}
+                            <Logo className={style.mobileLogo} aria-hidden='true' />
+                            {pageStatus === 'Authorized' && (
+                                <img src={currentUser?.profileImage} alt={t('header.avatar')} />
+                            )}
                         </div>
                         <div className={style.burgerMenuLinks}>
-                            <Aside
-                                pageStatus={pageStatus}
-                                className={style.burgerMenuAside}
-                            />
+                            <Aside pageStatus={pageStatus} className={style.burgerMenuAside} />
                         </div>
                     </div>
                 </div>
-            }
+            )}
         </header>
-    )
+    );
 }
 
-export default Header
+export default Header;

@@ -3,13 +3,20 @@
     background: var(--bg-input-textarea);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-m);
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-family: var(--font-poppins);
     resize: none;
+    transition: 0.2s;
+    font: 400 0.875rem var(--font-poppins);
 
     &:focus {
         outline: none;
-        border: 1px solid var(--focus-border);
+        border-color: var(--focus-border);
+        color: var(--text-primary);
+    }
+
+    &:hover {
+        transform: translateY(-2px);
     }
 
     &::placeholder {

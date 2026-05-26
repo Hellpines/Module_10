@@ -1,0 +1,15 @@
+.textWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+
+    .infoIcon {
+        width: 1.5rem;
+    }
+
+    p {
+        font: 400 0.875rem var(--font-poppins);
+        color: var(--text-secondary);
+    }
+}

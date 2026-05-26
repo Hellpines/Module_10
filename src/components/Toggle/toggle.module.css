@@ -1,0 +1,11 @@
+.toggleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggleLabel {
+    font: 400 1rem var(--font-inter);
+    color: var(--text-primary);
+    margin: 0;
+}
