@@ -8,7 +8,13 @@ export const getAvatarPath = (currentUser: User | null) => {
         return img;
     }
 
-    const base = process.env.PUBLIC_URL || '/';
+    let base = process.env.PUBLIC_URL || '';
+    if (base && !base.endsWith('/')) {
+        base += '/';
+    } else if (!base) {
+        base = '/';
+    }
+
     const cleanImg = img.startsWith('/') ? img.slice(1) : img;
     return `${base}${cleanImg}`;
 };
