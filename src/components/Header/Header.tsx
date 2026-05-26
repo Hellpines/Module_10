@@ -47,7 +47,7 @@ function Header({ pageStatus }: HeaderProps) {
             {pageStatus === 'Authorized' && (
                 <div className={style.personalShort}>
                     <img
-                        src={`${currentUser?.profileImage}`}
+                        src={`./${currentUser?.profileImage}`}
                         alt={t('header.userAvatar', { username: currentUser?.username })}
                     />
                     <p>{currentUser?.username}</p>
