@@ -53,7 +53,7 @@ function Modal({
     };
 
     const handleAddChecklist = () => {
-        const maxId = checklist.length > 0 ? Math.max(...checklist.map((item) => item.id)) : 0;
+        const maxId = checklist.reduce((max, item) => (item.id > max ? item.id : max), 0);
 
         setChecklist((prev) => {
             return [
@@ -101,7 +101,7 @@ function Modal({
         let newId: number;
 
         if (isCreateMode) {
-            const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
+            const maxId = notes.reduce((max, n) => (n.id > max ? n.id : max), 0);
             newId = maxId + 1;
         } else {
             newId = noteId;
