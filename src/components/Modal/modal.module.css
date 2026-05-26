@@ -147,7 +147,7 @@
                 width: 100%;
                 display: flex;
                 gap: 12px;
-                animation: slideDownChecklistItem 0.2s ease-out forwards;
+                animation: slideDownChecklistItem 0.3s ease-out forwards;
 
                 .deleteButton {
                     padding: var(--padding-12);
