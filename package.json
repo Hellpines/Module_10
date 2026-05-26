@@ -48,6 +48,8 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "type-check": "tsc --noEmit",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
         "prepare": "husky",
         "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
         "lint": "eslint \"src/**/*.{ts,tsx}\""
