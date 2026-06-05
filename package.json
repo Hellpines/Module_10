@@ -31,6 +31,8 @@
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {
+        "@playwright/test": "^1.60.0",
+        "@types/jest": "^30.0.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@types/styled-components": "^5.1.36",
@@ -76,6 +78,23 @@
             "react-app",
             "react-app/jest",
             "eslint-config-prettier"
+        ],
+        "overrides": [
+            {
+                "files": [
+                    "**/*.test.ts",
+                    "**/*.test.tsx",
+                    "**/*.spec.ts",
+                    "tests/**/*.ts"
+                ],
+                "rules": {
+                    "testing-library/prefer-screen-queries": "off",
+                    "testing-library/prefer-presence-queries": "off",
+                    "testing-library/no-node-access": "off",
+                    "testing-library/no-container": "off",
+                    "testing-library/no-wait-for-multiple-assertions": "off"
+                }
+            }
         ]
     },
     "lint-staged": {

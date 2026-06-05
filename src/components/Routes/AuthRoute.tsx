@@ -1,12 +1,6 @@
-import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-
-interface AuthRouteProps {
-    children: ReactNode;
-    requireAuth: boolean;
-    redirectTo: string;
-}
+import { AuthRouteProps } from '../../types/props/AuthRouteProps';
 
 function AuthRoute({ children, requireAuth, redirectTo }: AuthRouteProps) {
     const { currentUser } = useAuth();

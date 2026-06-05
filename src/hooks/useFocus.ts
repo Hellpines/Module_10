@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
-export const useFocusTrap = (
+export const useFocus = (
     containerRef: RefObject<HTMLElement | null>,
     isActive: boolean,
     onEscape?: () => void

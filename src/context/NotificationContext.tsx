@@ -7,27 +7,43 @@ import { NotificationType } from '../types/notification/NotificationType';
 export const NotificationContext = createContext<NotificationContextParts | null>(null);
 
 export function NotificationProvider({ children }: ProviderProps) {
-    const [notification, setNotification] = useState<AppNotification | null>(null);
+    const [notifications, setNotifications] = useState<AppNotification[]>([]);
 
-    const showNotification = useCallback((message: string, type: NotificationType) => {
-        setNotification({ message, type });
-
-        setTimeout(() => {
-            setNotification(null);
-        }, 3000);
+    const closeNotification = useCallback((id: string) => {
+        setNotifications((prev) => {
+            return prev.filter((notif) => {
+                return notif.id !== id;
+            });
+        });
     }, []);
 
-    const closeNotification = useCallback(() => {
-        setNotification(null);
-    }, []);
+    const showNotifications = useCallback(
+        (message: string, type: NotificationType) => {
+            const maxId =
+                notifications.length > 0
+                    ? Math.max(...notifications.map((notif) => Number(notif.id)))
+                    : 0;
+
+            const nextId = (maxId + 1).toString();
+
+            setNotifications((prev) => {
+                return [{ id: nextId, message, type }, ...prev];
+            });
+
+            setTimeout(() => {
+                closeNotification(nextId);
+            }, 3000);
+        },
+        [closeNotification, notifications]
+    );
 
     const contextValue = useMemo(
         () => ({
-            notification,
-            showNotification,
+            notifications,
+            showNotifications,
             closeNotification,
         }),
-        [notification, showNotification, closeNotification]
+        [notifications, showNotifications, closeNotification]
     );
 
     return (

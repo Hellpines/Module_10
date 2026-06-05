@@ -105,27 +105,29 @@ const Note = memo(
                 onClick={handleNoteClick}
                 onKeyDown={handleKeyDown}
             >
-                {title && (
-                    <p className={style.title} aria-hidden='true'>
-                        {title}
-                    </p>
-                )}
-                {flagCheckboxes ? (
-                    <ol className={style.list} aria-label='Checklist items'>
-                        {items?.map((item) => (
-                            <li key={item.id}>
-                                <Checkbox
-                                    checkboxId={item.id}
-                                    label={item.text}
-                                    checked={item.isCompleted}
-                                    onChange={() => toggleChecklistItem(id, item.id)}
-                                />
-                            </li>
-                        ))}
-                    </ol>
-                ) : (
-                    <p aria-hidden='true'>{content}</p>
-                )}
+                <div className={style.contentWrapper}>
+                    {title && (
+                        <p className={style.title} aria-hidden='true'>
+                            {title}
+                        </p>
+                    )}
+                    {flagCheckboxes ? (
+                        <ol className={style.list} aria-label='Checklist items'>
+                            {items?.map((item) => (
+                                <li key={item.id}>
+                                    <Checkbox
+                                        checkboxId={item.id}
+                                        label={item.text}
+                                        checked={item.isCompleted}
+                                        onChange={() => toggleChecklistItem(id, item.id)}
+                                    />
+                                </li>
+                            ))}
+                        </ol>
+                    ) : (
+                        <p aria-hidden='true'>{content}</p>
+                    )}
+                </div>
                 <div
                     ref={menuRef}
                     className={style.menuWrapper}

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import style from './input.module.css';
 import { InputProps } from '../../../types/ui/InputProps';
 
@@ -69,7 +69,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 {message &&
                     (error ? (
                         <div className={style.messageContainer} role={error ? 'alert' : 'status'}>
-                            <MiniError aria-hidden='true' />
+                            <MiniError className={style.miniErrorIcon} aria-hidden='true' />
 
                             <p className={style.errorMessage}>{message}</p>
                         </div>

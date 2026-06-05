@@ -32,7 +32,7 @@ function Profile() {
     const { currentUser, signOut, updateProfile } = useAuth();
     const { theme, toggleTheme, fontSizeRatio, updateFontSizeRatio } = useContext(ThemeContext)!;
     const { handleView, view, updateAllTodosBackground } = useContext(NotesContext)!;
-    const { showNotification } = useNotification();
+    const { showNotifications } = useNotification();
 
     const [username, setUsername] = useState(currentUser?.username || '');
     const [email, setEmail] = useState(currentUser?.email || '');
@@ -121,7 +121,7 @@ function Profile() {
         if (!file) return;
 
         if (file.size > 10 * 1024 * 1024) {
-            showNotification(t('profile.bgSizeError'), 'error');
+            showNotifications(t('profile.bgSizeError'), 'error');
             return;
         }
 
@@ -156,7 +156,7 @@ function Profile() {
 
     const handleSubmit = async () => {
         if (!username || !email || !description) {
-            showNotification(t('profile.validationWarning'), 'warning');
+            showNotifications(t('profile.validationWarning'), 'warning');
             return;
         }
 
@@ -175,15 +175,14 @@ function Profile() {
             }
 
             setPhotoFile(null);
-            showNotification(t('profile.updateSuccess'), 'success');
+            showNotifications(t('profile.updateSuccess'), 'success');
         } else {
-            showNotification(t('profile.updateError'), 'error');
+            showNotifications(t('profile.updateError'), 'error');
         }
     };
 
-    const toggleLanguage = () => {
-        const nextLang = i18n.language === 'en' ? 'ru' : 'en';
-        i18n.changeLanguage(nextLang);
+    const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        i18n.changeLanguage(e.target.value);
     };
 
     const userFullName = `${currentUser?.firstName || ''} ${currentUser?.secondName || ''}`.trim();
@@ -259,13 +258,7 @@ function Profile() {
                     </div>
                     <div className={style.actions}>
                         <p className={style.actionsTitle}>{t('profile.actionsTitle')}</p>
-                        <Button
-                            onClick={() => {
-                                signOut();
-                                showNotification(t('profile.logoutSuccess'), 'success');
-                            }}
-                            title={t('profile.logoutButton')}
-                        />
+                        <Button onClick={signOut} title={t('profile.logoutButton')} />
                     </div>
                 </div>
             </ProfileItem>
@@ -358,12 +351,19 @@ function Profile() {
                         </button>
                         <InfoTextItem innerText={t('profile.uploadBgInfo')} />
                     </div>
-                    <div className={style.toggleLanguage}>
-                        <Toggle
-                            toggleTitle={t('profile.languageToggle')}
-                            onClick={toggleLanguage}
-                            isActive={i18n.language === 'ru'}
-                        />
+                    <div className={style.languageSelectWrapper}>
+                        <label htmlFor='languageSelect' className={style.inputLabel}>
+                            {t('profile.languageSelect')}
+                        </label>
+                        <select
+                            id='languageSelect'
+                            className={style.languageSelect}
+                            value={i18n.language.substring(0, 2)}
+                            onChange={handleLanguageChange}
+                        >
+                            <option value='en'>English</option>
+                            <option value='ru'>Русский</option>
+                        </select>
                     </div>
                 </div>
             </ProfileItem>

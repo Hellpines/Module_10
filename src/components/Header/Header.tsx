@@ -7,13 +7,14 @@ import { useAuth } from '../../hooks/useAuth';
 import { HeaderProps } from '../../types/props/HeaderProps';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import { ReactComponent as BurgerMenuIcon } from '../../assets/icons/burger-menu.svg';
-import { useFocusTrap } from '../../hooks/useFocus';
+import { useFocus } from '../../hooks/useFocus';
 import { getAvatarPath } from '../../utils/getAvatarPath';
 
 function Header({ pageStatus }: HeaderProps) {
     const { t } = useTranslation();
-    const { currentUser } = useAuth();
+    const { currentUser, signOut } = useAuth();
     const [isOpenedBurgerMenu, setIsOpenedBurgerMenu] = useState(false);
+    const [isOpenedUserMenu, setIsOpenedUserMenu] = useState(false);
 
     const burgerMenuRef = useRef<HTMLDivElement>(null);
     const triggerRef = useRef<HTMLButtonElement>(null);
@@ -29,7 +30,20 @@ function Header({ pageStatus }: HeaderProps) {
         triggerRef.current?.focus();
     };
 
-    useFocusTrap(burgerMenuRef, isOpenedBurgerMenu, handleCloseBurgerMenu);
+    const handleToggleUserMenu = () => {
+        setIsOpenedUserMenu((prev) => !prev);
+    };
+
+    const handleCloseUserMenu = () => {
+        setIsOpenedUserMenu(false);
+    };
+
+    const handleLogout = () => {
+        signOut();
+        setIsOpenedUserMenu(false);
+    };
+
+    useFocus(burgerMenuRef, isOpenedBurgerMenu, handleCloseBurgerMenu);
 
     return (
         <header className={style.header}>
@@ -48,12 +62,39 @@ function Header({ pageStatus }: HeaderProps) {
             )}
 
             {pageStatus === 'Authorized' && (
-                <div className={style.personalShort}>
-                    <img
-                        src={avatarSrc}
-                        alt={t('header.userAvatar', { username: currentUser?.username })}
-                    />
-                    <p>{currentUser?.username}</p>
+                <div className={style.userMenuContainer}>
+                    <button
+                        type='button'
+                        className={style.personalShort}
+                        onClick={handleToggleUserMenu}
+                        aria-haspopup='true'
+                        aria-expanded={isOpenedUserMenu}
+                    >
+                        <img
+                            src={avatarSrc}
+                            alt={t('header.userAvatar', { username: currentUser?.username })}
+                        />
+                        <p>{currentUser?.username}</p>
+                    </button>
+
+                    {isOpenedUserMenu && (
+                        <div className={style.userDropdown}>
+                            <NavLink
+                                to='/profile'
+                                onClick={handleCloseUserMenu}
+                                className={style.dropdownItem}
+                            >
+                                {t('aside.profile')}
+                            </NavLink>
+                            <button
+                                type='button'
+                                onClick={handleLogout}
+                                className={style.dropdownItem}
+                            >
+                                {t('profile.logoutButton')}
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
 
@@ -84,7 +125,9 @@ function Header({ pageStatus }: HeaderProps) {
                         <div className={style.burgerMenuHeader}>
                             <Logo className={style.mobileLogo} aria-hidden='true' />
                             {pageStatus === 'Authorized' && (
-                                <img src={avatarSrc} alt={t('header.avatar')} />
+                                <NavLink to='/profile'>
+                                    <img src={avatarSrc} alt={t('header.avatar')} />
+                                </NavLink>
                             )}
                         </div>
                         <div className={style.burgerMenuLinks}>

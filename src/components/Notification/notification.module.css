@@ -1,26 +1,34 @@
 @keyframes show {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.notification {
+.notificationContainer {
     position: fixed;
     bottom: 48px;
     right: 48px;
     width: 350px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+}
+
+.notification {
+    position: relative;
+    width: 100%;
     padding: var(--padding-24);
     border-radius: 8px;
     color: #fff;
     font: 500 1.125rem var(--font-poppins);
     word-break: break-word;
-    animation: show 0.3s ease;
+    animation: show 0.3s ease forwards;
 }
 
 .success {
@@ -43,16 +51,16 @@
     cursor: pointer;
     background: none;
     border: none;
+}
 
-    .closeIcon {
-        width: 8px;
-        height: 8px;
-        color: var(--svg-color);
-    }
+.closeIcon {
+    width: 12px;
+    height: 12px;
+    color: var(--svg-color);
 }
 
 @media (max-width: 1180px) {
-    .notification {
+    .notificationContainer {
         bottom: 12px;
         right: 12px;
     }

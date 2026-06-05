@@ -31,13 +31,62 @@
         }
     }
 
+    .userMenuContainer {
+        position: relative;
+    }
+
+    .userDropdown {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 0;
+        background: var(--bg-card);
+        border-radius: 8px;
+        min-width: 150px;
+        display: flex;
+        flex-direction: column;
+        padding: 8px 0;
+        z-index: 10;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+
+        .dropdownItem {
+            padding: 10px 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+
+            &:hover {
+                background: var(--accent);
+                color: var(--text-primary);
+            }
+        }
+    }
+
     .personalShort {
         display: flex;
         align-items: center;
         gap: 8px;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font: inherit;
+        color: inherit;
 
         img {
             width: 24px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-primary);
         }
     }
 
@@ -111,6 +160,10 @@
         }
 
         .personalShort {
+            display: none;
+        }
+
+        .userMenuContainer {
             display: none;
         }
 

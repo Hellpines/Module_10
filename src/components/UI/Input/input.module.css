@@ -80,6 +80,11 @@
     gap: 8px;
     font-size: 0.875rem;
 
+    .miniErrorIcon {
+        width: 16px;
+        flex-shrink: 0;
+    }
+
     .errorMessage {
         color: var(--error-color);
     }

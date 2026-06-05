@@ -95,6 +95,10 @@ const resources = {
                 addCheckbox: 'Add item',
                 changeBg: 'Change background',
                 cancelButton: 'Cancel',
+                viewTitle: 'View note',
+                viewMode: 'View mode',
+                editMode: 'Edit mode',
+                close: 'Close modal window',
             },
             notelist: {
                 mainLabel: 'Active notes',
@@ -171,7 +175,7 @@ const resources = {
                 uploadFieldMain: 'Select a file or drag and drop here',
                 uploadFieldSub: 'JPG, PNG or PDF, file size no more than 10MB',
                 uploadBgInfo: 'Upload the image to apply as a note’s background image',
-                languageToggle: 'Russian Language',
+                languageSelect: 'Language switcher',
                 createdNotes: 'Created Notes',
                 archivedNotes: 'Archived Notes',
                 deletedNotes: 'Deleted Notes',
@@ -301,6 +305,9 @@ const resources = {
                 changeBg: 'Изменить фон',
                 cancelButton: 'Отмена',
                 close: 'Закрыть модальное окно',
+                viewTitle: 'Просмотр заметки',
+                viewMode: 'Режим просмотра',
+                editMode: 'Режим редактирования',
             },
             noteList: {
                 mainLabel: 'Список заметок',
@@ -374,7 +381,7 @@ const resources = {
                 uploadFieldMain: 'Выберите файл или перетащите его сюда',
                 uploadFieldSub: 'JPG, PNG или PDF, размер файла не более 10 МБ',
                 uploadBgInfo: 'Загрузите изображение, чтобы применить его в качестве фона заметки',
-                languageToggle: 'Русский язык',
+                languageSelect: 'Переключатель языка',
                 createdNotes: 'Созданные заметки',
                 archivedNotes: 'Архивные заметки',
                 deletedNotes: 'Удаленные заметки',
@@ -422,7 +429,7 @@ const i18nOptions: InitOptions = {
     interpolation: {
         escapeValue: false,
     },
-    ...({ allowObjectInHTMLChildren: true } as any),
+    ...{ allowObjectInHTMLChildren: true },
 };
 
 i18n.use(LanguageDetector).use(initReactI18next).init(i18nOptions);

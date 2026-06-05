@@ -1,4 +1,6 @@
 .note {
+    display: flex;
+    flex-direction: column;
     background-color: var(--bg-card);
     background-position: center;
     background-size: cover;
@@ -6,6 +8,7 @@
     padding: 18px;
     width: 250px;
     min-height: 200px;
+    max-height: 300px;
     border-radius: var(--radius-m);
     position: relative;
     border: 1px solid var(--border-color);
@@ -19,28 +22,36 @@
         box-shadow: 0 10px 20px #00000014;
     }
 
-    .title {
-        font: 600 1.25rem var(--font-inter);
-        margin-bottom: 12px;
-    }
+    .contentWrapper {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
 
-    ol {
-        list-style: none;
+        .title {
+            font: 600 1.25rem var(--font-inter);
+            margin-bottom: 12px;
+        }
 
-        li {
-            font: 400 1rem var(--font-inter);
-            margin-bottom: 4px;
+        ol {
+            list-style: none;
 
-            &:last-child {
-                margin-bottom: 0;
+            li {
+                font: 400 1rem var(--font-inter);
+                margin-bottom: 4px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
     }
 
     .menuWrapper {
-        position: absolute;
-        right: 18px;
-        bottom: 18px;
+        position: relative;
+
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
 
         .dots {
             background: var(--bg-card);

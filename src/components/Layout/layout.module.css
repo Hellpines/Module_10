@@ -10,7 +10,7 @@
 }
 
 .main {
-    padding: var(--padding-12) var(--padding-24);
+    padding: var(--padding-12) var(--padding-24) var(--padding-12) var(--padding-12);
     width: 100%;
     position: relative;
 }

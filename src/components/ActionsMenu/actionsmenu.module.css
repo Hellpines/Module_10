@@ -26,11 +26,10 @@
 .rightDown {
     top: 30px;
     bottom: auto;
-    right: auto;
+    left: 90%;
 }
 
 .leftDown {
-    right: 100%;
     top: 30px;
     bottom: auto;
     left: auto;

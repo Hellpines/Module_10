@@ -9,7 +9,7 @@ import { useNotification } from './useNotification';
 export const useNotesMutations = () => {
     const { t } = useTranslation();
     const queryClient = useQueryClient();
-    const { showNotification } = useNotification();
+    const { showNotifications } = useNotification();
 
     const invalidateNotes = () => {
         queryClient.invalidateQueries({
@@ -57,10 +57,10 @@ export const useNotesMutations = () => {
         onSuccess: () => {
             invalidateNotes();
 
-            showNotification(t('notifications.createSuccess'), 'success');
+            showNotifications(t('notifications.createSuccess'), 'success');
         },
         onError: () => {
-            showNotification(t('notifications.createError'), 'error');
+            showNotifications(t('notifications.createError'), 'error');
         },
     });
 
@@ -94,10 +94,10 @@ export const useNotesMutations = () => {
         onSuccess: () => {
             invalidateNotes();
 
-            showNotification(t('notifications.updateSuccess'), 'success');
+            showNotifications(t('notifications.updateSuccess'), 'success');
         },
         onError: () => {
-            showNotification(t('notifications.updateError'), 'error');
+            showNotifications(t('notifications.updateError'), 'error');
         },
     });
 
@@ -139,7 +139,7 @@ export const useNotesMutations = () => {
                 NOTES: t('notifications.unarchiveSuccess', { id: variables.id }),
             };
 
-            showNotification(messages[variables.newStatus], 'success');
+            showNotifications(messages[variables.newStatus], 'success');
         },
         onError: (_, variables) => {
             const errors = {
@@ -148,7 +148,7 @@ export const useNotesMutations = () => {
                 NOTES: t('notifications.unarchiveError'),
             };
 
-            showNotification(errors[variables.newStatus], 'error');
+            showNotifications(errors[variables.newStatus], 'error');
         },
     });
 
@@ -177,10 +177,10 @@ export const useNotesMutations = () => {
         onSuccess: () => {
             invalidateNotes();
 
-            showNotification(t('notifications.unarchiveAllSuccess'), 'success');
+            showNotifications(t('notifications.unarchiveAllSuccess'), 'success');
         },
         onError: () => {
-            showNotification(t('notifications.unarchiveAllError'), 'error');
+            showNotifications(t('notifications.unarchiveAllError'), 'error');
         },
     });
 
@@ -207,11 +207,11 @@ export const useNotesMutations = () => {
         onSuccess: async (_, id) => {
             invalidateNotes();
 
-            showNotification(t('notifications.deleteForeverSuccess', { id }), 'success');
+            showNotifications(t('notifications.deleteForeverSuccess', { id }), 'success');
         },
 
         onError: () => {
-            showNotification(t('notifications.deleteForeverError'), 'error');
+            showNotifications(t('notifications.deleteForeverError'), 'error');
         },
     });
 
@@ -236,10 +236,10 @@ export const useNotesMutations = () => {
         onSuccess: () => {
             invalidateNotes();
 
-            showNotification(t('notifications.clearTrashSuccess'), 'success');
+            showNotifications(t('notifications.clearTrashSuccess'), 'success');
         },
         onError: () => {
-            showNotification(t('notifications.clearTrashError'), 'error');
+            showNotifications(t('notifications.clearTrashError'), 'error');
         },
     });
 
@@ -290,11 +290,11 @@ export const useNotesMutations = () => {
         onSuccess: () => {
             invalidateNotes();
 
-            showNotification(t('notifications.uncheckAllSuccess'), 'success');
+            showNotifications(t('notifications.uncheckAllSuccess'), 'success');
         },
 
         onError: () => {
-            showNotification(t('notifications.uncheckAllError'), 'error');
+            showNotifications(t('notifications.uncheckAllError'), 'error');
         },
     });
 
@@ -322,7 +322,7 @@ export const useNotesMutations = () => {
             invalidateNotes();
         },
         onError: () => {
-            showNotification(t('notifications.updateBackgroundError'), 'error');
+            showNotifications(t('notifications.updateBackgroundError'), 'error');
         },
     });
 
@@ -345,10 +345,10 @@ export const useNotesMutations = () => {
         onSuccess: () => {
             invalidateNotes();
 
-            showNotification(t('notifications.updateAllBackgroundsSuccess'), 'success');
+            showNotifications(t('notifications.updateAllBackgroundsSuccess'), 'success');
         },
         onError: () => {
-            showNotification(t('notifications.updateAllBackgroundsError'), 'error');
+            showNotifications(t('notifications.updateAllBackgroundsError'), 'error');
         },
     });
 

@@ -12,7 +12,7 @@ function SignUp() {
     const { t } = useTranslation();
 
     const { signUp } = useAuth();
-    const { showNotification } = useNotification();
+    const { showNotifications } = useNotification();
 
     const navigate = useNavigate();
 
@@ -27,12 +27,12 @@ function SignUp() {
         const success = await signUp(data.email, data.password);
 
         if (!success) {
-            showNotification(t('signup.userExistsError'), 'error');
+            showNotifications(t('signup.userExistsError'), 'error');
             return;
         }
 
         navigate('/signin');
-        showNotification(t('signup.successMessage'), 'success');
+        showNotifications(t('signup.successMessage'), 'success');
     };
 
     return (

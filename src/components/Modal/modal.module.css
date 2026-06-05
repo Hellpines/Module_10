@@ -3,6 +3,7 @@
         opacity: 0;
         backdrop-filter: blur(0px);
     }
+
     to {
         opacity: 1;
         backdrop-filter: blur(10px);
@@ -14,6 +15,7 @@
         opacity: 0;
         transform: translate(-50%, -30%);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, -25%);
@@ -25,6 +27,7 @@
         opacity: 0;
         transform: translateY(-8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -56,9 +59,21 @@
     animation: slideDownModal 0.4s forwards;
 }
 
-.modalTitle {
-    font-size: 2.25rem;
+.modalHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 24px;
+    padding-right: 40px;
+}
+
+.modalHeaderRow .modalTitle {
+    font-size: 2.25rem;
+    margin-bottom: 0;
+}
+
+.modeToggleButton {
+    padding: 8px 16px;
 }
 
 .closeButton {
@@ -165,6 +180,70 @@
     margin-bottom: 12px;
 }
 
+.viewWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.viewItem {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.viewLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.viewTextTitle {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+.viewTextDescription {
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.viewChecklistWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.viewChecklistItems {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.viewChecklistItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+}
+
+.viewCheckbox {
+    width: 16px;
+    height: 16px;
+    cursor: not-allowed;
+}
+
+.completedText {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
 @media (max-width: 900px) {
     .modalWrapper {
         top: 60px;
@@ -176,9 +255,8 @@
         padding: var(--padding-12);
     }
 
-    .modalTitle {
+    .modalHeaderRow .modalTitle {
         font-size: 1.5rem;
-        margin-bottom: 12px;
     }
 
     .closeButton {
@@ -196,7 +274,13 @@
         width: 350px;
     }
 
-    .modalTitle {
+    .modalHeaderRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .modalHeaderRow .modalTitle {
         font-size: 1rem;
     }
 }

@@ -5,9 +5,13 @@ import { User } from '../types/auth/User';
 import { graphqlRequest } from '../api/graphqlRequest';
 import { logout, setToken, setUser } from '../store/authSlice';
 import { USER_FIELDS } from '../constants/userFields';
+import { useTranslation } from 'react-i18next';
+import { useNotification } from './useNotification';
 
 export const useAuthMutations = (token: string | null) => {
     const dispatch = useDispatch();
+    const { t } = useTranslation();
+    const { showNotifications } = useNotification();
 
     const fetchMe = useCallback(async (authToken: string) => {
         const data = await graphqlRequest<{ me: User }>(
@@ -139,6 +143,10 @@ export const useAuthMutations = (token: string | null) => {
                 {},
                 token
             );
+        },
+
+        onSuccess: () => {
+            showNotifications(t('profile.logoutSuccess'), 'success');
         },
 
         onSettled: () => {

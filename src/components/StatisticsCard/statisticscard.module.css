@@ -1,5 +1,6 @@
 .statisticsCard {
-    width: 350px;
+    max-width: 350px;
+    width: 100%;
     background: var(--bg-profile);
     display: flex;
     flex-direction: column;

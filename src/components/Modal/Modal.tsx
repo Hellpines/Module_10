@@ -13,7 +13,8 @@ import { ReactComponent as CheckboxIcon } from '../../assets/icons/checkbox-icon
 import { NotesContext } from '../../context/NotesContext';
 import { CheckListItem } from '../../types/notes/CheckListItem';
 import { useAuth } from '../../hooks/useAuth';
-import { useFocusTrap } from '../../hooks/useFocus';
+import { useFocus } from '../../hooks/useFocus';
+import Checkbox from '../UI/Checkbox/Checkbox';
 
 function Modal({
     notes,
@@ -29,12 +30,14 @@ function Modal({
 }: ModalProps) {
     const { t } = useTranslation();
     const { currentUser } = useAuth();
-    const { updateTodoBackground } = useContext(NotesContext)!;
+    const { updateTodoBackground, toggleChecklistItem } = useContext(NotesContext)!;
 
     const existingNote = notes?.find((n) => n.id === noteId);
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const modalRef = useRef<HTMLDivElement | null>(null);
+
+    const [isEditing, setIsEditing] = useState<boolean>(isCreateMode);
     const [currentTitle, setCurrentTitle] = useState(title || '');
     const [description, setDescription] = useState(content || '');
     const [checklist, setChecklist] = useState<CheckListItem[]>(items || []);
@@ -42,7 +45,7 @@ function Modal({
         existingNote?.backgroundImage
     );
 
-    useFocusTrap(modalRef, true, handleClose);
+    useFocus(modalRef, true, handleClose);
 
     const handleCurrentTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentTitle(e.target.value);
@@ -97,6 +100,10 @@ function Modal({
         reader.readAsDataURL(file);
     };
 
+    const toggleEditMode = () => {
+        setIsEditing((prev) => !prev);
+    };
+
     const handleSubmit = () => {
         let newId: number;
 
@@ -134,75 +141,140 @@ function Modal({
                 role='dialog'
                 aria-modal='true'
             >
-                <h2 className={style.modalTitle}>{modalTitle}</h2>
-
-                <div className={style.inputs}>
-                    <div className={style.inputWrapper}>
-                        <label htmlFor='title'>
-                            <LetterIcon className={style.letterIcon} aria-hidden='true' />
-                            <span>{t('modal.title')}</span>
-                        </label>
-                        <Input
-                            className={style.inputTitle}
-                            type='text'
-                            id='title'
-                            placeholder={t('modal.enterTitle')}
-                            value={currentTitle}
-                            onChange={handleCurrentTitle}
+                <div className={style.modalHeaderRow}>
+                    <h2 className={style.modalTitle}>
+                        {isEditing ? modalTitle : t('modal.viewTitle')}
+                    </h2>
+                    {!isCreateMode && (
+                        <Button
+                            title={isEditing ? t('modal.viewMode') : t('modal.editMode')}
+                            onClick={toggleEditMode}
+                            className={style.modeToggleButton}
                         />
-                    </div>
-
-                    <div className={style.inputWrapper}>
-                        <label htmlFor='description'>
-                            <PencilIcon className={style.pencilIcon} aria-hidden='true' />
-                            <span>{t('modal.description')}</span>
-                        </label>
-                        <TextArea
-                            className={style.inputDescription}
-                            id='description'
-                            placeholder={t('modal.writeDesc')}
-                            value={description}
-                            onChange={handleDescription}
-                        />
-                    </div>
-
-                    <div className={style.checklistWrapper}>
-                        <p className={style.checklistTitle}>
-                            <CheckboxIcon className={style.CheckboxIcon} aria-hidden='true' />
-                            <span>{t('modal.checkboxes')}</span>
-                        </p>
-
-                        <div
-                            className={style.checklistItems}
-                            role='group'
-                            aria-label={t('modal.checkboxes')}
-                        >
-                            {checklist.map((item, index) => (
-                                <div key={item.id} className={style.checklistItem}>
-                                    <Input
-                                        type='text'
-                                        placeholder={t('modal.checkItem')}
-                                        value={item.text}
-                                        aria-label={`${t('modal.checkItem')} ${index + 1}`}
-                                        onChange={(e) =>
-                                            handleChecklistText(item.id, e.target.value)
-                                        }
-                                    />
-                                    <Button
-                                        title={t('modal.delete')}
-                                        aria-label={`${t('modal.delete')} ${item.text || index + 1}`}
-                                        className={style.deleteButton}
-                                        onClick={() => handleDeleteChecklist(item.id)}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-
-                        <Button title={t('modal.addCheckbox')} onClick={handleAddChecklist} />
-                    </div>
+                    )}
                 </div>
 
-                {!isCreateMode && (
+                <div className={style.inputs}>
+                    {isEditing ? (
+                        <>
+                            <div className={style.inputWrapper}>
+                                <label htmlFor='title'>
+                                    <LetterIcon className={style.letterIcon} aria-hidden='true' />
+                                    <span>{t('modal.title')}</span>
+                                </label>
+                                <Input
+                                    className={style.inputTitle}
+                                    type='text'
+                                    id='title'
+                                    placeholder={t('modal.enterTitle')}
+                                    value={currentTitle}
+                                    onChange={handleCurrentTitle}
+                                />
+                            </div>
+
+                            <div className={style.inputWrapper}>
+                                <label htmlFor='description'>
+                                    <PencilIcon className={style.pencilIcon} aria-hidden='true' />
+                                    <span>{t('modal.description')}</span>
+                                </label>
+                                <TextArea
+                                    className={style.inputDescription}
+                                    id='description'
+                                    placeholder={t('modal.writeDesc')}
+                                    value={description}
+                                    onChange={handleDescription}
+                                />
+                            </div>
+
+                            <div className={style.checklistWrapper}>
+                                <p className={style.checklistTitle}>
+                                    <CheckboxIcon
+                                        className={style.CheckboxIcon}
+                                        aria-hidden='true'
+                                    />
+                                    <span>{t('modal.checkboxes')}</span>
+                                </p>
+
+                                <div
+                                    className={style.checklistItems}
+                                    role='group'
+                                    aria-label={t('modal.checkboxes')}
+                                >
+                                    {checklist.map((item, index) => (
+                                        <div key={item.id} className={style.checklistItem}>
+                                            <Input
+                                                type='text'
+                                                placeholder={t('modal.checkItem')}
+                                                value={item.text}
+                                                aria-label={`${t('modal.checkItem')} ${index + 1}`}
+                                                onChange={(e) =>
+                                                    handleChecklistText(item.id, e.target.value)
+                                                }
+                                            />
+                                            <Button
+                                                title={t('modal.delete')}
+                                                aria-label={`${t('modal.delete')} ${item.text || index + 1}`}
+                                                className={style.deleteButton}
+                                                onClick={() => handleDeleteChecklist(item.id)}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <Button
+                                    title={t('modal.addCheckbox')}
+                                    onClick={handleAddChecklist}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <div className={style.viewWrapper}>
+                            <div className={style.viewItem}>
+                                <span className={style.viewLabel}>
+                                    <LetterIcon className={style.letterIcon} aria-hidden='true' />
+                                    {t('modal.title')}
+                                </span>
+                                <p className={style.viewTextTitle}>{currentTitle || '—'}</p>
+                            </div>
+
+                            <div className={style.viewItem}>
+                                <span className={style.viewLabel}>
+                                    <PencilIcon className={style.pencilIcon} aria-hidden='true' />
+                                    {t('modal.description')}
+                                </span>
+                                <p className={style.viewTextDescription}>{description || '—'}</p>
+                            </div>
+
+                            {existingNote?.items && existingNote.items.length > 0 && (
+                                <div className={style.viewChecklistWrapper}>
+                                    <span className={style.viewLabel}>
+                                        <CheckboxIcon
+                                            className={style.CheckboxIcon}
+                                            aria-hidden='true'
+                                        />
+                                        {t('modal.checkboxes')}
+                                    </span>
+                                    <div className={style.viewChecklistItems}>
+                                        {existingNote.items.map((item) => (
+                                            <div key={item.id} className={style.viewChecklistItem}>
+                                                <Checkbox
+                                                    checkboxId={item.id}
+                                                    label={item.text}
+                                                    checked={item.isCompleted}
+                                                    onChange={() =>
+                                                        toggleChecklistItem(noteId!, item.id)
+                                                    }
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+
+                {!isCreateMode && isEditing && (
                     <div className={style.backgroundControlWrapper}>
                         <input
                             type='file'
@@ -221,7 +293,7 @@ function Modal({
                 )}
 
                 <div className={style.wrapperButton}>
-                    <Button title={buttonTitle} onClick={handleSubmit} />
+                    {isEditing && <Button title={buttonTitle} onClick={handleSubmit} />}
                 </div>
 
                 <button

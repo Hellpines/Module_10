@@ -1,21 +1,10 @@
 import style from '../../pages/mainpages.module.css';
-import { NoteStatus } from '../../types/notes/NoteStatus';
 import { useNotesByStatus } from '../../hooks/useNotesByStatus';
 import Layout from '../Layout/Layout';
 import Button from '../UI/Button/Button';
 import NoteList from '../NoteList/NoteList';
 import { Loader } from '../UI/Loader/Loader';
-
-interface NotesStatusPageProps {
-    status: NoteStatus;
-    page: 'Archived' | 'Trash';
-    onBulkAction: () => void;
-    isBulkProcessing: boolean;
-    buttonTitle: string;
-    buttonTitleProcessing: string;
-    loadingLabel: string;
-    emptyText: string;
-}
+import { NotesStatusPageProps } from '../../types/props/NotesStatusPageProps';
 
 function NotesStatusPage({
     status,

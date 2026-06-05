@@ -29,8 +29,8 @@ enableMocking().then(() => {
             <QueryClientProvider client={queryClient}>
                 <React.StrictMode>
                     <ThemeProvider>
-                        <AuthProvider>
-                            <NotificationProvider>
+                        <NotificationProvider>
+                            <AuthProvider>
                                 <NotesProvider>
                                     <HashRouter>
                                         <ErrorBoundary>
@@ -38,8 +38,8 @@ enableMocking().then(() => {
                                         </ErrorBoundary>
                                     </HashRouter>
                                 </NotesProvider>
-                            </NotificationProvider>
-                        </AuthProvider>
+                            </AuthProvider>
+                        </NotificationProvider>
                     </ThemeProvider>
                 </React.StrictMode>
             </QueryClientProvider>

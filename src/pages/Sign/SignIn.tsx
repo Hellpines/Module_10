@@ -12,7 +12,7 @@ function SignIn() {
     const { t } = useTranslation();
 
     const { login } = useAuth();
-    const { showNotification } = useNotification();
+    const { showNotifications } = useNotification();
     const navigate = useNavigate();
 
     const {
@@ -26,12 +26,12 @@ function SignIn() {
         const user = await login(data.email, data.password);
 
         if (!user) {
-            showNotification(t('signin.wrongCredentials'), 'error');
+            showNotifications(t('signin.wrongCredentials'), 'error');
             return;
         }
 
         navigate('/');
-        showNotification(
+        showNotifications(
             t('signin.welcomeMessage', { name: user.firstName || user.username }),
             'success'
         );
