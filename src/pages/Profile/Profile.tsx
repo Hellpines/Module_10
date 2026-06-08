@@ -12,7 +12,6 @@ import TextArea from '../../components/UI/TextArea/TextArea';
 import ProfileItem from '../../components/ProfileItem/ProfileItem';
 import { ThemeContext } from '../../context/ThemeContext';
 import Toggle from '../../components/Toggle/Toggle';
-import { NotesContext } from '../../context/NotesContext';
 import InfoTextItem from '../../components/InfoTextItem/InfoTextItem';
 import StatisticsCard from '../../components/StatisticsCard/StatisticsCard';
 import { NoteStatus } from '../../types/notes/NoteStatus';
@@ -25,13 +24,15 @@ import { useNotesByStatus } from '../../hooks/useNotesByStatus';
 import { ChartDataItem } from '../../types/chart/ChartDataItem';
 import { useNotification } from '../../hooks/useNotification';
 import { getAvatarPath } from '../../utils/getAvatarPath';
+import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { useNotes } from '../../hooks/useNotes';
 
 function Profile() {
     const { t, i18n } = useTranslation();
 
     const { currentUser, signOut, updateProfile } = useAuth();
     const { theme, toggleTheme, fontSizeRatio, updateFontSizeRatio } = useContext(ThemeContext)!;
-    const { handleView, view, updateAllTodosBackground } = useContext(NotesContext)!;
+    const { handleView, view, updateAllTodosBackground } = useNotes();
     const { showNotifications } = useNotification();
 
     const [username, setUsername] = useState(currentUser?.username || '');
@@ -181,8 +182,9 @@ function Profile() {
         }
     };
 
-    const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        i18n.changeLanguage(e.target.value);
+    const handleLanguageChange = (e: SelectChangeEvent<string>) => {
+        const newLang = e.target.value;
+        i18n.changeLanguage(newLang);
     };
 
     const userFullName = `${currentUser?.firstName || ''} ${currentUser?.secondName || ''}`.trim();
@@ -352,18 +354,42 @@ function Profile() {
                         <InfoTextItem innerText={t('profile.uploadBgInfo')} />
                     </div>
                     <div className={style.languageSelectWrapper}>
-                        <label htmlFor='languageSelect' className={style.inputLabel}>
-                            {t('profile.languageSelect')}
-                        </label>
-                        <select
-                            id='languageSelect'
-                            className={style.languageSelect}
-                            value={i18n.language.substring(0, 2)}
-                            onChange={handleLanguageChange}
-                        >
-                            <option value='en'>English</option>
-                            <option value='ru'>Русский</option>
-                        </select>
+                        <FormControl fullWidth size='small'>
+                            <InputLabel
+                                id='language-select-label'
+                                sx={{
+                                    color: 'var(--text-primary)',
+                                }}
+                            >
+                                {t('profile.languageSelect')}
+                            </InputLabel>
+
+                            <Select
+                                labelId='language-select-label'
+                                id='language-select'
+                                value={i18n.language.substring(0, 2)}
+                                label={t('profile.languageSelect')}
+                                onChange={handleLanguageChange}
+                                sx={{
+                                    width: 200,
+                                    borderRadius: 'var(--radius-m)',
+                                    backgroundColor: 'var(--bg-input-textarea)',
+                                    color: 'var(--text-primary)',
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'var(--border-color)',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'var(--accent)',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'var(--accent)',
+                                    },
+                                }}
+                            >
+                                <MenuItem value='en'>English</MenuItem>
+                                <MenuItem value='ru'>Русский</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                 </div>
             </ProfileItem>

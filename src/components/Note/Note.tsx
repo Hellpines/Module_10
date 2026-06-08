@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, useContext, memo } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import style from './note.module.css';
 import ActionsMenu from '../ActionsMenu/ActionsMenu';
 import Checkbox from '../UI/Checkbox/Checkbox';
-import { NotesContext } from '../../context/NotesContext';
 import { NoteProps } from '../../types/props/NoteProps';
 import { ReactComponent as ActionsIcon } from '../../assets/icons/dots.svg';
+import { useNotes } from '../../hooks/useNotes';
 
 const Note = memo(
     ({
@@ -23,7 +23,7 @@ const Note = memo(
         const menuRef = useRef<HTMLDivElement | null>(null);
         const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-        const { toggleChecklistItem, uncheckAllItems, view } = useContext(NotesContext)!;
+        const { toggleChecklistItem, uncheckAllItems, view } = useNotes();
 
         const handleFlagCheckboxes = (e: React.MouseEvent) => {
             e.stopPropagation();

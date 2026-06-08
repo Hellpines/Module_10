@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import style from './form.module.css';
@@ -28,8 +28,21 @@ function Form({
     const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
 
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password);
+    const validateEmail = (email: string): boolean => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const validatePassword = (password: string): boolean => {
+        return /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password);
+    };
+
+    const isEmailValid = useMemo(() => {
+        return validateEmail(email || '');
+    }, [email]);
+
+    const isPasswordValid = useMemo(() => {
+        return validatePassword(password || '');
+    }, [password]);
 
     return (
         <form className={style.form} onSubmit={handleSubmit(onSubmit)} noValidate>

@@ -24,10 +24,21 @@
 
     .contentWrapper {
         flex: 1;
-        overflow-y: auto;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 7;
+        box-orient: vertical;
+        line-clamp: 7;
         min-height: 0;
 
         .title {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            box-orient: vertical;
+            line-clamp: 2;
             font: 600 1.25rem var(--font-inter);
             margin-bottom: 12px;
         }

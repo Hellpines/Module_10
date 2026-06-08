@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NotesContext } from '../../context/NotesContext';
 import NotesStatusPage from '../../components/NotesStatusPage/NotesStatusPage';
+import { useNotes } from '../../hooks/useNotes';
 
 function Trash() {
     const { t } = useTranslation();
-    const { deleteAllFromTrash, isBulkProcessing } = useContext(NotesContext)!;
+    const { deleteAllFromTrash, isBulkProcessing } = useNotes();
 
     return (
         <NotesStatusPage

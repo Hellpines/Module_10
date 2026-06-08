@@ -110,30 +110,30 @@
 
 .statisticsSection {
     --profile-item-padding: 16px;
-}
 
-.statistics {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-
-    .statsCards {
-        display: flex;
-        gap: 32px;
-    }
-
-    .statsVisualization {
+    .statistics {
         display: flex;
         flex-direction: column;
+        gap: 32px;
 
-        .visualizationTitle {
-            font: 600 1.75rem var(--font-inter);
-            margin-bottom: 24px;
+        .statsCards {
+            display: flex;
+            gap: 32px;
         }
 
-        .visualizationGroup {
+        .statsVisualization {
             display: flex;
-            gap: 24px;
+            flex-direction: column;
+
+            .visualizationTitle {
+                font: 600 1.75rem var(--font-inter);
+                margin-bottom: 24px;
+            }
+
+            .visualizationGroup {
+                display: flex;
+                gap: 24px;
+            }
         }
     }
 }
@@ -191,29 +191,7 @@
     }
 
     .languageSelectWrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
         margin-top: 16px;
-    }
-
-    .languageSelect {
-        width: 100%;
-        max-width: 200px;
-        padding: 10px 12px;
-        border-radius: var(--radius-m);
-        border: 1px solid var(--border-color);
-        background-color: var(--bg-input-textarea);
-        color: var(--text-primary);
-        font-family: var(--font-poppins), sans-serif;
-        font-size: 1rem;
-        cursor: pointer;
-        outline: none;
-        transition: 0.2s ease;
-    }
-
-    .languageSelect:focus {
-        border-color: var(--accent);
     }
 }
 

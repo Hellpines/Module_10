@@ -157,7 +157,7 @@
     flex-direction: column;
     gap: 12px;
     margin-bottom: 12px;
-    max-height: 150px;
+    max-height: 250px;
     overflow-y: auto;
 }
 

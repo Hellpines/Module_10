@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef, useState, useLayoutEffect } from 'react';
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import style from './actionsmenu.module.css';
-import { NotesContext } from '../../context/NotesContext';
 import { ActionsMenuProps } from '../../types/props/ActionsMenuProps';
+import { useNotes } from '../../hooks/useNotes';
 
 function ActionsMenu({
     note,
@@ -13,7 +13,7 @@ function ActionsMenu({
     onClose,
 }: ActionsMenuProps) {
     const { t } = useTranslation();
-    const { moveToTrash, addToArchive, removeFromArchive, deleteTodo } = useContext(NotesContext)!;
+    const { moveToTrash, addToArchive, removeFromArchive, deleteTodo } = useNotes();
     const menuRef = useRef<HTMLDivElement>(null);
 
     const [positionClass, setPositionClass] = useState(style.rightDown);

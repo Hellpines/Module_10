@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import style from './modal.module.css';
 import { Note } from '../../types/notes/Note';
@@ -10,11 +10,11 @@ import { ReactComponent as CloseIcon } from '../../assets/icons/close-icon.svg';
 import { ReactComponent as LetterIcon } from '../../assets/icons/letter-icon.svg';
 import { ReactComponent as PencilIcon } from '../../assets/icons/pencil-icon.svg';
 import { ReactComponent as CheckboxIcon } from '../../assets/icons/checkbox-icon.svg';
-import { NotesContext } from '../../context/NotesContext';
 import { CheckListItem } from '../../types/notes/CheckListItem';
 import { useAuth } from '../../hooks/useAuth';
 import { useFocus } from '../../hooks/useFocus';
 import Checkbox from '../UI/Checkbox/Checkbox';
+import { useNotes } from '../../hooks/useNotes';
 
 function Modal({
     notes,
@@ -30,7 +30,7 @@ function Modal({
 }: ModalProps) {
     const { t } = useTranslation();
     const { currentUser } = useAuth();
-    const { updateTodoBackground, toggleChecklistItem } = useContext(NotesContext)!;
+    const { updateTodoBackground, toggleChecklistItem } = useNotes();
 
     const existingNote = notes?.find((n) => n.id === noteId);
 

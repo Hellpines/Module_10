@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NotesContext } from '../../context/NotesContext';
 import NotesStatusPage from '../../components/NotesStatusPage/NotesStatusPage';
+import { useNotes } from '../../hooks/useNotes';
 
 function Archived() {
     const { t } = useTranslation();
-    const { unarchiveAll, isBulkProcessing } = useContext(NotesContext)!;
+    const { unarchiveAll, isBulkProcessing } = useNotes();
 
     return (
         <NotesStatusPage

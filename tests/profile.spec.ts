@@ -74,9 +74,11 @@ test.describe('Profile Page', () => {
         await authenticatePage(page);
         await gotoAppPage(page, '/profile');
 
-        await page.locator('#languageSelect').selectOption('ru');
+        await page.locator('#language-select').click();
 
-        await expect(page.locator('#languageSelect')).toHaveValue('ru');
+        await page.getByRole('option', { name: 'Русский' }).click();
+
+        await expect(page.locator('#language-select')).toHaveText(/Русский/);
         await expect(page.getByRole('switch', { name: 'Тёмная тема' })).toBeVisible();
     });
 
