@@ -26,12 +26,13 @@ import { useNotification } from '../../hooks/useNotification';
 import { getAvatarPath } from '../../utils/getAvatarPath';
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import { useNotes } from '../../hooks/useNotes';
+import { useTheme } from '../../hooks/useTheme';
 
 function Profile() {
     const { t, i18n } = useTranslation();
 
     const { currentUser, signOut, updateProfile } = useAuth();
-    const { theme, toggleTheme, fontSizeRatio, updateFontSizeRatio } = useContext(ThemeContext)!;
+    const { theme, toggleTheme, fontSizeRatio, updateFontSizeRatio } = useTheme();
     const { handleView, view, updateAllTodosBackground } = useNotes();
     const { showNotifications } = useNotification();
 
