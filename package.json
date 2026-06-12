@@ -18,6 +18,7 @@
         "axios": "^1.16.1",
         "i18next": "^26.2.0",
         "i18next-browser-languagedetector": "^8.2.1",
+        "list": "^2.0.19",
         "next": "^16.2.9",
         "react": "^19.2.5",
         "react-dom": "^19.2.5",
@@ -35,10 +36,9 @@
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@types/styled-components": "^5.1.36",
-        "eslint": "^9.0.0",
+        "eslint": "^9.39.4",
         "eslint-config-next": "^16.2.9",
         "eslint-config-prettier": "^10.1.8",
-        "eslint-config-react-app": "^7.0.1",
         "husky": "^9.1.7",
         "jest": "^30.4.2",
         "jest-environment-jsdom": "^30.4.1",
@@ -52,7 +52,7 @@
         "build": "next build",
         "build:gh-pages": "next build --webpack",
         "start": "next start",
-        "lint": "eslint \"src/**/*.{ts,tsx}\"",
+        "lint": "eslint . --ext .ts,.tsx",
         "type-check": "tsc --noEmit",
         "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
         "test": "jest --config jest.config.cjs",
@@ -74,30 +74,6 @@
     "msw": {
         "workerDirectory": [
             "public"
-        ]
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest",
-            "eslint-config-prettier"
-        ],
-        "overrides": [
-            {
-                "files": [
-                    "**/*.test.ts",
-                    "**/*.test.tsx",
-                    "**/*.spec.ts",
-                    "tests/**/*.ts"
-                ],
-                "rules": {
-                    "testing-library/prefer-screen-queries": "off",
-                    "testing-library/prefer-presence-queries": "off",
-                    "testing-library/no-node-access": "off",
-                    "testing-library/no-container": "off",
-                    "testing-library/no-wait-for-multiple-assertions": "off"
-                }
-            }
         ]
     },
     "lint-staged": {

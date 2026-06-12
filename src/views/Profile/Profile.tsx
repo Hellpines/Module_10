@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import style from './profile.module.css';
 import Layout from '../../components/Layout/Layout';
@@ -12,7 +12,6 @@ import { ReactComponent as FileIcon } from '../../assets/icons/file-icon.svg';
 import Input from '../../components/UI/Input/Input';
 import TextArea from '../../components/UI/TextArea/TextArea';
 import ProfileItem from '../../components/ProfileItem/ProfileItem';
-import { ThemeContext } from '../../context/ThemeContext';
 import Toggle from '../../components/Toggle/Toggle';
 import InfoTextItem from '../../components/InfoTextItem/InfoTextItem';
 import StatisticsCard from '../../components/StatisticsCard/StatisticsCard';

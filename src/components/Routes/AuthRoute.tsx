@@ -2,7 +2,7 @@
 
 import { AuthRouteProps } from '../../types/props/AuthRouteProps';
 import { useAuth } from '@/hooks/useAuth';
-import { useEffect, type ReactNode } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function AuthRoute({ children, requireAuth, redirectTo }: AuthRouteProps) {
