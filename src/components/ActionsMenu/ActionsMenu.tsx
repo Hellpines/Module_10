@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import style from './actionsmenu.module.css';

@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef } from 'react';
 import style from './input.module.css';
 import { InputProps } from '../../../types/ui/InputProps';

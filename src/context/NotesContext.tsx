@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useCallback, useState, useEffect, useMemo } from 'react';
 import { Note } from '../types/notes/Note';
 import { NotesContextParts } from '../types/context/NotesContextParts';
@@ -8,6 +10,10 @@ export const NotesContext = createContext<NotesContextParts | null>(null);
 
 export const NotesProvider = ({ children }: ProviderProps) => {
     const [view, setView] = useState<'grid' | 'list'>(() => {
+        if (typeof window === 'undefined') {
+            return 'grid';
+        }
+
         const savedTheme = localStorage.getItem('notes-view');
         return savedTheme === 'grid' || savedTheme === 'list' ? savedTheme : 'grid';
     });

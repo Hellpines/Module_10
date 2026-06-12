@@ -1,3 +1,5 @@
+'use client';
+
 import { createPortal } from 'react-dom';
 import style from './notification.module.css';
 import { ReactComponent as CloseIcon } from '../../assets/icons/close-icon.svg';

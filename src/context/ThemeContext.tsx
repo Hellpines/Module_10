@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { ThemeContextParts } from '../types/context/ThemeContextParts';
 import { ProviderProps } from '../types/props/ProviderProps';
@@ -7,6 +9,10 @@ export const ThemeContext = createContext<ThemeContextParts | null>(null);
 
 export const ThemeProvider = ({ children }: ProviderProps) => {
     const [theme, setTheme] = useState<ThemeType>(() => {
+        if (typeof window === 'undefined') {
+            return 'light';
+        }
+
         const savedTheme = localStorage.getItem('app-theme');
 
         if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -17,6 +23,10 @@ export const ThemeProvider = ({ children }: ProviderProps) => {
     });
 
     const [fontSizeRatio, setFontSizeRatio] = useState<number>(() => {
+        if (typeof window === 'undefined') {
+            return 1;
+        }
+
         const saved = localStorage.getItem('app-font-size-ratio');
 
         const parsed = saved ? parseFloat(saved) : 1;

@@ -22,7 +22,7 @@ test.describe('Archived Page', () => {
 
         await navigateViaAside(page, 'Archive');
 
-        await expect(page).toHaveURL(/\/#\/archived/);
+        await expect(page).toHaveURL(/\/archived$/);
         await expect(page.getByRole('button', { name: 'Unarchive all' })).toBeVisible();
     });
 

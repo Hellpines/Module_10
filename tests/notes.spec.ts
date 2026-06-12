@@ -26,7 +26,9 @@ test.describe('Notes Page', () => {
 
         await page.locator('#title').fill('Buy groceries');
         await page.locator('#description').fill('Milk, bread, cheese');
-        await page.getByRole('dialog').getByRole('button', { name: 'Create' }).click();
+        const createButton = page.getByRole('dialog').getByRole('button', { name: 'Create' });
+        await createButton.scrollIntoViewIfNeeded();
+        await createButton.click();
 
         await expect(page.getByRole('dialog')).not.toBeVisible();
     });
@@ -68,7 +70,9 @@ test.describe('Notes Page', () => {
         await page.locator('#description').fill('Checklist body text');
         await page.getByRole('dialog').getByRole('button', { name: 'Add item' }).click();
         await page.getByRole('dialog').getByPlaceholder('Add list item...').fill('Buy milk');
-        await page.getByRole('dialog').getByRole('button', { name: 'Create' }).click();
+        const createButton = page.getByRole('dialog').getByRole('button', { name: 'Create' });
+        await createButton.scrollIntoViewIfNeeded();
+        await createButton.click();
         await expect(page.getByRole('dialog')).not.toBeVisible();
 
         const noteCard = page.getByRole('button', { name: /E2E checklist note/i });

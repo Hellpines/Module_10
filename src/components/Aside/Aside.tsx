@@ -1,10 +1,14 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import style from './aside.module.css';
 import { AsideProps } from '../../types/props/AsideProps';
+import { usePathname } from 'next/navigation';
 
 function Aside({ pageStatus, className }: AsideProps) {
     const { t } = useTranslation();
+    const pathname = usePathname();
 
     return (
         <aside>
@@ -13,55 +17,52 @@ function Aside({ pageStatus, className }: AsideProps) {
                     {pageStatus === 'Authorized' ? (
                         <>
                             <li>
-                                <NavLink
-                                    to='/'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
-                                >
+                                <Link href='/' className={pathname === '/' ? style.active : ''}>
                                     {t('aside.notes')}
-                                </NavLink>
+                                </Link>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/profile'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <Link
+                                    href='/profile'
+                                    className={pathname === '/profile' ? style.active : ''}
                                 >
                                     {t('aside.profile')}
-                                </NavLink>
+                                </Link>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/archived'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <Link
+                                    href='/archived'
+                                    className={pathname === '/archived' ? style.active : ''}
                                 >
                                     {t('aside.archive')}
-                                </NavLink>
+                                </Link>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/trash'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <Link
+                                    href='/trash'
+                                    className={pathname === '/trash' ? style.active : ''}
                                 >
                                     {t('aside.trash')}
-                                </NavLink>
+                                </Link>
                             </li>
                         </>
                     ) : (
                         <>
                             <li>
-                                <NavLink
-                                    to='/signin'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <Link
+                                    href='/signin'
+                                    className={pathname === '/signin' ? style.active : ''}
                                 >
                                     {t('aside.signIn')}
-                                </NavLink>
+                                </Link>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/signup'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <Link
+                                    href='/signup'
+                                    className={pathname === '/signup' ? style.active : ''}
                                 >
                                     {t('aside.signUp')}
-                                </NavLink>
+                                </Link>
                             </li>
                         </>
                     )}

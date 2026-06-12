@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMutation } from '@tanstack/react-query';

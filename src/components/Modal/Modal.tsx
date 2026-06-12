@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import style from './modal.module.css';

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import style from './profileitem.module.css';
 import { ProfileItemProps } from '../../types/props/ProfileItemProps';

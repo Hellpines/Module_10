@@ -2,8 +2,6 @@ import { render, screen } from '@testing-library/react';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthRouteProps } from '../../types/props/AuthRouteProps';
 
-jest.mock('react-router-dom', () => ({}), { virtual: true });
-
 jest.mock('./AuthRoute', () => {
     return function MockAuthRoute({ children, requireAuth, redirectTo }: AuthRouteProps) {
         return (

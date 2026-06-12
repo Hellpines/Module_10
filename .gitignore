@@ -3,6 +3,11 @@
 /.pnp
 .pnp.js
 
+# next
+/.next/
+/out/
+next-env.d.ts
+
 # testing
 /coverage
 /test-results/
@@ -13,6 +18,7 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local

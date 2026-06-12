@@ -1,3 +1,5 @@
+'use client';
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '../types/auth/User';
 import { AuthState } from '../types/auth/AuthState';

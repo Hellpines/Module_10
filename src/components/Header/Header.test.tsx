@@ -18,18 +18,23 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock(
-    'react-router-dom',
+    'next/link',
     () => ({
-        NavLink: ({
-            to,
+        __esModule: true,
+        default: ({
+            href,
             children,
             onClick,
+            className,
+            'aria-label': ariaLabel,
         }: {
-            to: string;
+            href: string;
             children: React.ReactNode;
             onClick?: () => void;
+            className?: string;
+            'aria-label'?: string;
         }) => (
-            <a href={to} onClick={onClick}>
+            <a href={href} onClick={onClick} className={className} aria-label={ariaLabel}>
                 {children}
             </a>
         ),

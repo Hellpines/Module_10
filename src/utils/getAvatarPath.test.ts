@@ -13,13 +13,13 @@ describe('getAvatarPath utility', () => {
         process.env = originalEnv;
     });
 
-    test('should return empty string if currentUser is null', () => {
-        expect(getAvatarPath(null)).toBe('');
+    test('should return undefined if currentUser is null', () => {
+        expect(getAvatarPath(null)).toBeUndefined();
     });
 
-    test('should return empty string if profileImage is not provided', () => {
+    test('should return undefined if profileImage is not provided', () => {
         const mockUser = {} as User;
-        expect(getAvatarPath(mockUser)).toBe('');
+        expect(getAvatarPath(mockUser)).toBeUndefined();
     });
 
     test('should return unchanged string if it starts with http, blob:, or data:', () => {

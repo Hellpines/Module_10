@@ -425,9 +425,14 @@ const resources = {
 const i18nOptions: InitOptions = {
     resources,
     fallbackLng: 'en',
-    debug: process.env.NODE_ENV === 'development',
+    lng: typeof window === 'undefined' ? 'en' : undefined,
+    debug: false,
     interpolation: {
         escapeValue: false,
+    },
+    detection: {
+        order: ['localStorage', 'navigator'],
+        caches: ['localStorage'],
     },
     ...{ allowObjectInHTMLChildren: true },
 };

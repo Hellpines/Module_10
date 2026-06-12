@@ -1,5 +1,7 @@
+'use client';
+
 import { useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import style from './header.module.css';
 import Aside from '../Aside/Aside';
@@ -7,6 +9,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { HeaderProps } from '../../types/props/HeaderProps';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import { ReactComponent as BurgerMenuIcon } from '../../assets/icons/burger-menu.svg';
+import { ReactComponent as UserIcon } from '../../assets/icons/user-icon.svg';
 import { useFocus } from '../../hooks/useFocus';
 import { getAvatarPath } from '../../utils/getAvatarPath';
 
@@ -47,17 +50,17 @@ function Header({ pageStatus }: HeaderProps) {
 
     return (
         <header className={style.header}>
-            <NavLink to='/' aria-label={t('header.homeLink')}>
+            <Link href='/' aria-label={t('header.homeLink')}>
                 <Logo
                     className={`${style.logo} ${pageStatus !== 'Authorized' ? style.mobileLogo : ''}`}
                     aria-hidden='true'
                 />
-            </NavLink>
+            </Link>
 
             {pageStatus === 'NotAuthorized' && (
                 <nav className={style.authLinks} aria-label={t('header.authNavigation')}>
-                    <NavLink to='/signup'>{t('header.signUp')}</NavLink>
-                    <NavLink to='/signin'>{t('header.signIn')}</NavLink>
+                    <Link href='/signup'>{t('header.signUp')}</Link>
+                    <Link href='/signin'>{t('header.signIn')}</Link>
                 </nav>
             )}
 
@@ -70,22 +73,26 @@ function Header({ pageStatus }: HeaderProps) {
                         aria-haspopup='true'
                         aria-expanded={isOpenedUserMenu}
                     >
-                        <img
-                            src={avatarSrc}
-                            alt={t('header.userAvatar', { username: currentUser?.username })}
-                        />
+                        {avatarSrc ? (
+                            <img
+                                src={avatarSrc}
+                                alt={t('header.userAvatar', { username: currentUser?.username })}
+                            />
+                        ) : (
+                            <UserIcon className={style.avatarPlaceholder} aria-hidden='true' />
+                        )}
                         <p>{currentUser?.username}</p>
                     </button>
 
                     {isOpenedUserMenu && (
                         <div className={style.userDropdown}>
-                            <NavLink
-                                to='/profile'
+                            <Link
+                                href='/profile'
                                 onClick={handleCloseUserMenu}
                                 className={style.dropdownItem}
                             >
                                 {t('aside.profile')}
-                            </NavLink>
+                            </Link>
                             <button
                                 type='button'
                                 onClick={handleLogout}
@@ -125,9 +132,16 @@ function Header({ pageStatus }: HeaderProps) {
                         <div className={style.burgerMenuHeader}>
                             <Logo className={style.mobileLogo} aria-hidden='true' />
                             {pageStatus === 'Authorized' && (
-                                <NavLink to='/profile'>
-                                    <img src={avatarSrc} alt={t('header.avatar')} />
-                                </NavLink>
+                                <Link href='/profile'>
+                                    {avatarSrc ? (
+                                        <img src={avatarSrc} alt={t('header.avatar')} />
+                                    ) : (
+                                        <UserIcon
+                                            className={style.avatarPlaceholder}
+                                            aria-hidden='true'
+                                        />
+                                    )}
+                                </Link>
                             )}
                         </div>
                         <div className={style.burgerMenuLinks}>

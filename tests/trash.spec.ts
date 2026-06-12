@@ -24,7 +24,7 @@ test.describe('Trash Page', () => {
 
         await navigateViaAside(page, 'Trash');
 
-        await expect(page).toHaveURL(/\/#\/trash/);
+        await expect(page).toHaveURL(/\/trash$/);
         await expect(page.getByRole('button', { name: 'Delete all' })).toBeVisible();
     });
 

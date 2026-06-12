@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { NoteStatus } from '../types/notes/NoteStatus';
 import { fetchNotesByStatus } from '../utils/fetchNotesByStatus';
