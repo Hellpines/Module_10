@@ -11,6 +11,10 @@ const repoBasePath = '/Module_10';
 const nextConfig: NextConfig = {
     reactStrictMode: true,
 
+    experimental: {
+        optimizePackageImports: ['@mui/material', '@mui/icons-material', 'recharts'],
+    },
+
     ...(isGithubPages
         ? {
               output: 'export',
@@ -25,7 +29,6 @@ const nextConfig: NextConfig = {
         styledComponents: true,
     },
 
-    // Next.js 16 uses Turbopack by default — SVG loaders go here
     turbopack: {
         rules: {
             '*.svg': {
@@ -40,7 +43,6 @@ const nextConfig: NextConfig = {
         },
     },
 
-    // Fallback when running: next dev --webpack / next build --webpack
     webpack(config) {
         const fileLoaderRule = config.module.rules.find((rule: { test?: RegExp }) =>
             rule.test?.test?.('.svg')

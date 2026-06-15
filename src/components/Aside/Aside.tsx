@@ -1,7 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { AppLink } from '@/components/Navigation/AppLink';
+import { APP_ROUTES, isActiveRoute } from '@/lib/navigation/app-routes';
 import style from './aside.module.css';
 import { AsideProps } from '../../types/props/AsideProps';
 import { usePathname } from 'next/navigation';
@@ -17,52 +18,77 @@ function Aside({ pageStatus, className }: AsideProps) {
                     {pageStatus === 'Authorized' ? (
                         <>
                             <li>
-                                <Link href='/' className={pathname === '/' ? style.active : ''}>
+                                <AppLink
+                                    href={APP_ROUTES.home}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.home) ? style.active : ''
+                                    }
+                                >
                                     {t('aside.notes')}
-                                </Link>
+                                </AppLink>
                             </li>
                             <li>
-                                <Link
-                                    href='/profile'
-                                    className={pathname === '/profile' ? style.active : ''}
+                                <AppLink
+                                    href={APP_ROUTES.profile}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.profile)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.profile')}
-                                </Link>
+                                </AppLink>
                             </li>
                             <li>
-                                <Link
-                                    href='/archived'
-                                    className={pathname === '/archived' ? style.active : ''}
+                                <AppLink
+                                    href={APP_ROUTES.archived}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.archived)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.archive')}
-                                </Link>
+                                </AppLink>
                             </li>
                             <li>
-                                <Link
-                                    href='/trash'
-                                    className={pathname === '/trash' ? style.active : ''}
+                                <AppLink
+                                    href={APP_ROUTES.trash}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.trash)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.trash')}
-                                </Link>
+                                </AppLink>
                             </li>
                         </>
                     ) : (
                         <>
                             <li>
-                                <Link
-                                    href='/signin'
-                                    className={pathname === '/signin' ? style.active : ''}
+                                <AppLink
+                                    href={APP_ROUTES.signIn}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.signIn)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.signIn')}
-                                </Link>
+                                </AppLink>
                             </li>
                             <li>
-                                <Link
-                                    href='/signup'
-                                    className={pathname === '/signup' ? style.active : ''}
+                                <AppLink
+                                    href={APP_ROUTES.signUp}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.signUp)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.signUp')}
-                                </Link>
+                                </AppLink>
                             </li>
                         </>
                     )}

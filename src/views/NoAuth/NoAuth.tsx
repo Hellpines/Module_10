@@ -1,7 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { AppLink } from '@/components/Navigation/AppLink';
+import { APP_ROUTES } from '@/lib/navigation/app-routes';
 import style from '../infoPage.module.css';
 import Layout from '../../components/Layout/Layout';
 
@@ -13,12 +14,12 @@ function NoAuthPage() {
             <main className={style.noAuthPage}>
                 <h1>
                     {t('noAuthPage.signInRequiredPart1')}
-                    <Link href='/signin'>{t('noAuthPage.signInLink')}</Link>
+                    <AppLink href={APP_ROUTES.signIn}>{t('noAuthPage.signInLink')}</AppLink>
                     {t('noAuthPage.signInRequiredPart2')}
                 </h1>
                 <p>
                     {t('noAuthPage.signUpPrompt')}{' '}
-                    <Link href='/signup'>{t('noAuthPage.signUpLink')}</Link>
+                    <AppLink href={APP_ROUTES.signUp}>{t('noAuthPage.signUpLink')}</AppLink>
                 </p>
             </main>
         </Layout>

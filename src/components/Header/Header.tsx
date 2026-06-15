@@ -1,8 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { AppLink } from '@/components/Navigation/AppLink';
+import { APP_ROUTES } from '@/lib/navigation/app-routes';
 import style from './header.module.css';
 import Aside from '../Aside/Aside';
 import { useAuth } from '../../hooks/useAuth';
@@ -50,17 +51,17 @@ function Header({ pageStatus }: HeaderProps) {
 
     return (
         <header className={style.header}>
-            <Link href='/' aria-label={t('header.homeLink')}>
+            <AppLink href={APP_ROUTES.home} aria-label={t('header.homeLink')}>
                 <Logo
                     className={`${style.logo} ${pageStatus !== 'Authorized' ? style.mobileLogo : ''}`}
                     aria-hidden='true'
                 />
-            </Link>
+            </AppLink>
 
             {pageStatus === 'NotAuthorized' && (
                 <nav className={style.authLinks} aria-label={t('header.authNavigation')}>
-                    <Link href='/signup'>{t('header.signUp')}</Link>
-                    <Link href='/signin'>{t('header.signIn')}</Link>
+                    <AppLink href={APP_ROUTES.signUp}>{t('header.signUp')}</AppLink>
+                    <AppLink href={APP_ROUTES.signIn}>{t('header.signIn')}</AppLink>
                 </nav>
             )}
 
@@ -86,13 +87,13 @@ function Header({ pageStatus }: HeaderProps) {
 
                     {isOpenedUserMenu && (
                         <div className={style.userDropdown}>
-                            <Link
-                                href='/profile'
+                            <AppLink
+                                href={APP_ROUTES.profile}
                                 onClick={handleCloseUserMenu}
                                 className={style.dropdownItem}
                             >
                                 {t('aside.profile')}
-                            </Link>
+                            </AppLink>
                             <button
                                 type='button'
                                 onClick={handleLogout}
@@ -132,7 +133,7 @@ function Header({ pageStatus }: HeaderProps) {
                         <div className={style.burgerMenuHeader}>
                             <Logo className={style.mobileLogo} aria-hidden='true' />
                             {pageStatus === 'Authorized' && (
-                                <Link href='/profile'>
+                                <AppLink href={APP_ROUTES.profile}>
                                     {avatarSrc ? (
                                         <img src={avatarSrc} alt={t('header.avatar')} />
                                     ) : (
@@ -141,7 +142,7 @@ function Header({ pageStatus }: HeaderProps) {
                                             aria-hidden='true'
                                         />
                                     )}
-                                </Link>
+                                </AppLink>
                             )}
                         </div>
                         <div className={style.burgerMenuLinks}>

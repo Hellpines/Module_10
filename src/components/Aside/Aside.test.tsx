@@ -31,6 +31,9 @@ jest.mock(
 
 jest.mock('next/navigation', () => ({
     usePathname: () => '/',
+    useRouter: () => ({
+        prefetch: jest.fn(),
+    }),
 }));
 
 describe('Aside Component', () => {

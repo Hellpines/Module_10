@@ -42,6 +42,12 @@ jest.mock(
     { virtual: true }
 );
 
+jest.mock('next/navigation', () => ({
+    useRouter: () => ({
+        prefetch: jest.fn(),
+    }),
+}));
+
 jest.mock('../../hooks/useAuth', () => ({
     useAuth: () => ({
         currentUser: mockCurrentUser,

@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useTranslation } from 'react-i18next';
 import style from './profile.module.css';
 import Layout from '../../components/Layout/Layout';
@@ -17,8 +18,7 @@ import InfoTextItem from '../../components/InfoTextItem/InfoTextItem';
 import StatisticsCard from '../../components/StatisticsCard/StatisticsCard';
 import { NoteStatus } from '../../types/notes/NoteStatus';
 import { Note } from '../../types/notes/Note';
-import Table from '../../components/StatsItems/Table/Table';
-import NotesChart from '../../components/StatsItems/NotesChart/NotesChart';
+import { PageLoader } from '../../components/PageViews/PageLoader';
 import { calculateMoM } from '../../utils/calculateMoM';
 import { useAuth } from '../../hooks/useAuth';
 import { useNotesByStatus } from '../../hooks/useNotesByStatus';
@@ -28,6 +28,16 @@ import { getAvatarPath } from '../../utils/getAvatarPath';
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import { useNotes } from '../../hooks/useNotes';
 import { useTheme } from '../../hooks/useTheme';
+
+const Table = dynamic(() => import('../../components/StatsItems/Table/Table'), {
+    loading: () => <PageLoader />,
+    ssr: false,
+});
+
+const NotesChart = dynamic(() => import('../../components/StatsItems/NotesChart/NotesChart'), {
+    loading: () => <PageLoader />,
+    ssr: false,
+});
 
 function Profile() {
     const { t, i18n } = useTranslation();
