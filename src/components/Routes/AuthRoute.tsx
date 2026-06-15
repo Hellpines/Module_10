@@ -4,6 +4,7 @@ import { AuthRouteProps } from '../../types/props/AuthRouteProps';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { PageLoader } from '@/components/PageViews/PageLoader';
 
 export default function AuthRoute({ children, requireAuth, redirectTo }: AuthRouteProps) {
     const { currentUser } = useAuth();
@@ -19,8 +20,8 @@ export default function AuthRoute({ children, requireAuth, redirectTo }: AuthRou
         }
     }, [requireAuth, isAuthenticated, redirectTo, router]);
 
-    if (requireAuth && !isAuthenticated) return null;
-    if (!requireAuth && isAuthenticated) return null;
+    if (requireAuth && !isAuthenticated) return <PageLoader />;
+    if (!requireAuth && isAuthenticated) return <PageLoader />;
 
     return <>{children}</>;
 }

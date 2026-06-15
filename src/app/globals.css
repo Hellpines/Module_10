@@ -1,7 +1,4 @@
 :root {
-    --font-poppins: 'Poppins', sans-serif;
-    --font-inter: 'Inter', sans-serif;
-
     --radius-m: 8px;
     --padding-12: 12px;
     --padding-24: 24px;
@@ -58,20 +55,6 @@
     --svg-color: #ffffff;
     --focus-border: #9d74ff;
     --border-color: #3c4043;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('./fonts/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Poppins';
-    src: url('./fonts/Poppins-VariableFont_wght.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 * {

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { StructuredData } from '@/components/Seo/StructuredData';
+import { AppShell } from '@/components/AppShell/AppShell';
+import { inter, poppins } from '@/lib/fonts';
 import { createPageMetadata, createRootMetadata } from '@/lib/seo/metadata';
 import {
     getBreadcrumbJsonLd,
@@ -37,10 +39,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     ];
 
     return (
-        <html lang='en'>
+        <html lang='en' className={`${poppins.variable} ${inter.variable}`}>
             <body>
                 <StructuredData data={structuredData} />
-                <Providers>{children}</Providers>
+                <Providers>
+                    <AppShell>{children}</AppShell>
+                </Providers>
             </body>
         </html>
     );

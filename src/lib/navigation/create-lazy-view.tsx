@@ -1,21 +1,27 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import type { ComponentType, ReactNode } from 'react';
-import { AppShell } from '@/components/AppShell/AppShell';
+import dynamic from 'next/dynamic';
 import ProtectedRoute from '@/components/Routes/ProtectedRoute';
 import PublicRoute from '@/components/Routes/PublicRoute';
 import { PageLoader } from '@/components/PageViews/PageLoader';
 import { RouteGuard } from '@/types/route/RouteGuard';
 
+interface LazyViewOptions {
+    eager?: boolean;
+}
+
 export function createLazyView<P extends object>(
     importView: () => Promise<{ default: ComponentType<P> }>,
-    displayName: string
+    displayName: string,
+    options: LazyViewOptions = {}
 ) {
-    const LazyView = dynamic(importView, {
-        loading: () => <PageLoader />,
-        ssr: false,
-    });
+    const LazyView = options.eager
+        ? dynamic(importView, { ssr: false })
+        : dynamic(importView, {
+              loading: () => <PageLoader />,
+              ssr: false,
+          });
 
     LazyView.displayName = displayName;
 
@@ -25,9 +31,10 @@ export function createLazyView<P extends object>(
 export function createAppPageView<P extends object>(
     importView: () => Promise<{ default: ComponentType<P> }>,
     displayName: string,
-    guard: RouteGuard = 'none'
+    guard: RouteGuard = 'none',
+    options: LazyViewOptions = {}
 ) {
-    const LazyView = createLazyView(importView, displayName);
+    const LazyView = createLazyView(importView, displayName, options);
 
     function AppPageView(props: P) {
         let content: ReactNode = <LazyView {...props} />;
@@ -40,7 +47,7 @@ export function createAppPageView<P extends object>(
             content = <PublicRoute>{content}</PublicRoute>;
         }
 
-        return <AppShell>{content}</AppShell>;
+        return content;
     }
 
     AppPageView.displayName = `${displayName}Page`;

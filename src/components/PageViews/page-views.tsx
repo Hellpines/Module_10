@@ -29,19 +29,22 @@ export const LazyTrashPageView = createAppPageView(
 export const LazySignInPageView = createAppPageView(
     () => import('@/views/Sign/SignIn'),
     'SignIn',
-    'public'
+    'public',
+    { eager: true }
 );
 
 export const LazySignUpPageView = createAppPageView(
     () => import('@/views/Sign/SignUp'),
     'SignUp',
-    'public'
+    'public',
+    { eager: true }
 );
 
 export const LazyNoAuthPageView = createAppPageView(
     () => import('@/views/NoAuth/NoAuth'),
     'NoAuth',
-    'public'
+    'public',
+    { eager: true }
 );
 
 export const LazyNotFoundPageView = createAppPageView(
