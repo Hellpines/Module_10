@@ -48,7 +48,7 @@ describe('AuthRoute Component', () => {
         expect(screen.queryByTestId('protected-content')).toBeNull();
 
         await waitFor(() => {
-            expect(mockReplace).toHaveBeenCalledWith('/login');
+            expect(mockReplace).toHaveBeenCalledWith('/login/');
         });
     });
 
@@ -71,7 +71,7 @@ describe('AuthRoute Component', () => {
         expect(screen.queryByTestId('guest-content')).toBeNull();
 
         await waitFor(() => {
-            expect(mockReplace).toHaveBeenCalledWith('/dashboard');
+            expect(mockReplace).toHaveBeenCalledWith('/dashboard/');
         });
     });
 

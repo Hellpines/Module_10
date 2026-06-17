@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { APP_ROUTES } from '@/lib/navigation/app-routes';
+import { toCanonicalPath } from '@/lib/seo/site';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../hooks/useAuth';
 import style from './sign.module.css';
@@ -33,7 +34,7 @@ function SignIn() {
             return;
         }
 
-        router.replace(APP_ROUTES.home);
+        router.replace(toCanonicalPath(APP_ROUTES.home));
         showNotifications(
             t('signin.welcomeMessage', { name: user.firstName || user.username }),
             'success'

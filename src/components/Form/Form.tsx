@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import { AppLink } from '@/components/Navigation/AppLink';
 import { useTranslation } from 'react-i18next';
 import style from './form.module.css';
 import Button from '../UI/Button/Button';
@@ -157,7 +157,7 @@ function Form({
             )}
 
             <p className={style.textRedirect}>
-                {redirectText} <Link href={hrefLink}>{hrefLinkText}</Link>
+                {redirectText} <AppLink href={hrefLink}>{hrefLinkText}</AppLink>
             </p>
         </form>
     );

@@ -1,4 +1,7 @@
 :root {
+    --font-poppins: 'Poppins', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+
     --radius-m: 8px;
     --padding-12: 12px;
     --padding-24: 24px;

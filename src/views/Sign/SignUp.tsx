@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { APP_ROUTES } from '@/lib/navigation/app-routes';
+import { toCanonicalPath } from '@/lib/seo/site';
 import style from './sign.module.css';
 import Form from '../../components/Form/Form';
 import Layout from '../../components/Layout/Layout';
@@ -34,7 +35,7 @@ function SignUp() {
             return;
         }
 
-        router.replace(APP_ROUTES.signIn);
+        router.replace(toCanonicalPath(APP_ROUTES.signIn));
         showNotifications(t('signup.successMessage'), 'success');
     };
 

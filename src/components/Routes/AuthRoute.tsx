@@ -5,23 +5,24 @@ import { useAuth } from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { PageLoader } from '@/components/PageViews/PageLoader';
+import { toCanonicalPath } from '@/lib/seo/site';
 
 export default function AuthRoute({ children, requireAuth, redirectTo }: AuthRouteProps) {
     const { currentUser } = useAuth();
     const router = useRouter();
     const isAuthenticated = !!currentUser;
+    const shouldRedirect = (requireAuth && !isAuthenticated) || (!requireAuth && isAuthenticated);
+    const targetPath = toCanonicalPath(redirectTo);
 
     useEffect(() => {
-        if (requireAuth && !isAuthenticated) {
-            router.replace(redirectTo);
+        if (shouldRedirect) {
+            router.replace(targetPath);
         }
-        if (!requireAuth && isAuthenticated) {
-            router.replace(redirectTo);
-        }
-    }, [requireAuth, isAuthenticated, redirectTo, router]);
+    }, [shouldRedirect, targetPath, router]);
 
-    if (requireAuth && !isAuthenticated) return <PageLoader />;
-    if (!requireAuth && isAuthenticated) return <PageLoader />;
+    if (shouldRedirect) {
+        return <PageLoader />;
+    }
 
     return <>{children}</>;
 }

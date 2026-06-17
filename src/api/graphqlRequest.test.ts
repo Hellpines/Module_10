@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getGraphqlUrl } from './getGraphqlUrl';
 import { graphqlRequest } from './graphqlRequest';
 
 jest.mock('axios');
@@ -34,7 +35,7 @@ describe('graphqlRequest Utility', () => {
         expect(result).toEqual(mockResponse.data.data);
         expect(mockedAxios.post).toHaveBeenCalledTimes(1);
         expect(mockedAxios.post).toHaveBeenCalledWith(
-            '/api/graphql',
+            getGraphqlUrl(),
             { query: sampleQuery, variables: sampleVariables },
             expect.objectContaining({
                 headers: {},
@@ -50,7 +51,7 @@ describe('graphqlRequest Utility', () => {
         await graphqlRequest(sampleQuery, sampleVariables, sampleToken);
 
         expect(mockedAxios.post).toHaveBeenCalledWith(
-            '/api/graphql',
+            getGraphqlUrl(),
             expect.any(Object),
             expect.objectContaining({
                 headers: {
@@ -67,7 +68,7 @@ describe('graphqlRequest Utility', () => {
         await graphqlRequest(sampleQuery);
 
         expect(mockedAxios.post).toHaveBeenCalledWith(
-            '/api/graphql',
+            getGraphqlUrl(),
             { query: sampleQuery, variables: {} },
             expect.any(Object)
         );
