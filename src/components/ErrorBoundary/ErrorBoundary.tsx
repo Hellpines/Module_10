@@ -1,5 +1,5 @@
 import React, { ErrorInfo } from 'react';
-import Error from '../../pages/Error/Error';
+import Error from '../../views/Error/Error';
 import { ErrorBoundaryProps } from '../../types/error/ErrorBoundaryProps';
 import { ErrorBoundaryState } from '../../types/error/ErrorBoundaryState';
 

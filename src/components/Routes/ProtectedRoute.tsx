@@ -1,12 +1,11 @@
 import AuthRoute from './AuthRoute';
-import { RouteProps } from 'react-router-dom';
+import { RouteProps } from '../../types/props/RouteProps';
+import { APP_ROUTES } from '@/lib/navigation/app-routes';
 
-function ProtectedRoute({ children }: RouteProps) {
+export default function ProtectedRoute({ children }: RouteProps) {
     return (
-        <AuthRoute requireAuth redirectTo='/noauth'>
+        <AuthRoute requireAuth redirectTo={APP_ROUTES.noAuth}>
             {children}
         </AuthRoute>
     );
 }
-
-export default ProtectedRoute;

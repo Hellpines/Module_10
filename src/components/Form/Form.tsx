@@ -1,5 +1,7 @@
+'use client';
+
 import { useMemo, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { AppLink } from '@/components/Navigation/AppLink';
 import { useTranslation } from 'react-i18next';
 import style from './form.module.css';
 import Button from '../UI/Button/Button';
@@ -155,7 +157,7 @@ function Form({
             )}
 
             <p className={style.textRedirect}>
-                {redirectText} <NavLink to={hrefLink}>{hrefLinkText}</NavLink>
+                {redirectText} <AppLink href={hrefLink}>{hrefLinkText}</AppLink>
             </p>
         </form>
     );

@@ -1,24 +1,16 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import AuthRoute from './AuthRoute';
 import { useAuth } from '../../hooks/useAuth';
 import { User } from '../../types/auth/User';
 import { AuthRouteProps } from '../../types/props/AuthRouteProps';
 
-jest.mock(
-    'react-router-dom',
-    () => ({
-        Navigate: function MockNavigate({ to, replace }: { to: string; replace?: boolean }) {
-            return (
-                <div
-                    data-testid='mock-navigate'
-                    data-to={to}
-                    data-replace={replace ? 'true' : 'false'}
-                />
-            );
-        },
+const mockReplace = jest.fn();
+
+jest.mock('next/navigation', () => ({
+    useRouter: () => ({
+        replace: mockReplace,
     }),
-    { virtual: true }
-);
+}));
 
 jest.mock('../../hooks/useAuth', () => ({
     useAuth: jest.fn(),
@@ -49,15 +41,15 @@ describe('AuthRoute Component', () => {
         jest.clearAllMocks();
     });
 
-    test('redirects to target path when authentication is required but user is anonymous', () => {
+    test('redirects to target path when authentication is required but user is anonymous', async () => {
         setMockUser(null);
         render(<AuthRoute {...defaultProps} />);
 
         expect(screen.queryByTestId('protected-content')).toBeNull();
 
-        const navigate = screen.getByTestId('mock-navigate');
-        expect(navigate.getAttribute('data-to')).toBe('/login');
-        expect(navigate.getAttribute('data-replace')).toBe('true');
+        await waitFor(() => {
+            expect(mockReplace).toHaveBeenCalledWith('/login/');
+        });
     });
 
     test('renders protected child layout when authentication is required and user details exist', () => {
@@ -65,10 +57,10 @@ describe('AuthRoute Component', () => {
         render(<AuthRoute {...defaultProps} />);
 
         expect(screen.getByTestId('protected-content')).not.toBeNull();
-        expect(screen.queryByTestId('mock-navigate')).toBeNull();
+        expect(mockReplace).not.toHaveBeenCalled();
     });
 
-    test('redirects to safe route when page is guest-only but an authenticated user attempts access', () => {
+    test('redirects to safe route when page is guest-only but an authenticated user attempts access', async () => {
         setMockUser(mockAuthenticatedUser);
         render(
             <AuthRoute requireAuth={false} redirectTo='/dashboard'>
@@ -78,9 +70,9 @@ describe('AuthRoute Component', () => {
 
         expect(screen.queryByTestId('guest-content')).toBeNull();
 
-        const navigate = screen.getByTestId('mock-navigate');
-        expect(navigate.getAttribute('data-to')).toBe('/dashboard');
-        expect(navigate.getAttribute('data-replace')).toBe('true');
+        await waitFor(() => {
+            expect(mockReplace).toHaveBeenCalledWith('/dashboard/');
+        });
     });
 
     test('renders component contents normally when page is guest-only and user remains anonymous', () => {
@@ -92,6 +84,6 @@ describe('AuthRoute Component', () => {
         );
 
         expect(screen.getByTestId('guest-content')).not.toBeNull();
-        expect(screen.queryByTestId('mock-navigate')).toBeNull();
+        expect(mockReplace).not.toHaveBeenCalled();
     });
 });

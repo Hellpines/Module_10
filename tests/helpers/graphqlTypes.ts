@@ -15,6 +15,10 @@ export interface UpdateTodoVariables {
     input?: Pick<Note, 'title' | 'content' | 'items'>;
 }
 
+export interface CreateTodoVariables {
+    input?: Pick<Note, 'title' | 'content' | 'items'>;
+}
+
 export interface ChangeTodoStatusVariables {
     id?: Note['id'];
     newStatus?: NoteStatus;

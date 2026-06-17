@@ -16,45 +16,48 @@
         "@testing-library/react": "^16.3.2",
         "@testing-library/user-event": "^13.5.0",
         "axios": "^1.16.1",
-        "gh-pages": "^6.3.0",
         "i18next": "^26.2.0",
         "i18next-browser-languagedetector": "^8.2.1",
+        "list": "^2.0.19",
+        "next": "^16.2.9",
         "react": "^19.2.5",
         "react-dom": "^19.2.5",
         "react-hook-form": "^7.76.0",
         "react-i18next": "^17.0.8",
         "react-redux": "^9.3.0",
-        "react-router-dom": "^7.14.2",
-        "react-scripts": "^5.0.1",
         "recharts": "^3.8.1",
         "styled-components": "^6.4.2",
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {
         "@playwright/test": "^1.60.0",
+        "@svgr/webpack": "^8.1.0",
         "@types/jest": "^30.0.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@types/styled-components": "^5.1.36",
-        "eslint": "^8.57.0",
+        "eslint": "^9.39.4",
+        "eslint-config-next": "^16.2.9",
         "eslint-config-prettier": "^10.1.8",
-        "eslint-config-react-app": "^7.0.1",
         "husky": "^9.1.7",
+        "jest": "^30.4.2",
+        "jest-environment-jsdom": "^30.4.1",
         "lint-staged": "^17.0.5",
         "prettier": "^3.8.3",
-        "typescript": "^4.9.4"
+        "typescript": "^5.9.3"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
+        "dev": "next dev",
+        "dev:clean": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('.next',{recursive:true,force:true})\" && next dev",
+        "build": "next build",
+        "build:gh-pages": "next build --webpack",
+        "start": "next start",
+        "lint": "eslint . --ext .ts,.tsx",
         "type-check": "tsc --noEmit",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
-        "prepare": "husky",
         "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
-        "lint": "eslint \"src/**/*.{ts,tsx}\""
+        "test": "jest --config jest.config.cjs",
+        "test:e2e": "playwright test",
+        "prepare": "husky"
     },
     "browserslist": {
         "production": [
@@ -73,30 +76,6 @@
             "public"
         ]
     },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest",
-            "eslint-config-prettier"
-        ],
-        "overrides": [
-            {
-                "files": [
-                    "**/*.test.ts",
-                    "**/*.test.tsx",
-                    "**/*.spec.ts",
-                    "tests/**/*.ts"
-                ],
-                "rules": {
-                    "testing-library/prefer-screen-queries": "off",
-                    "testing-library/prefer-presence-queries": "off",
-                    "testing-library/no-node-access": "off",
-                    "testing-library/no-container": "off",
-                    "testing-library/no-wait-for-multiple-assertions": "off"
-                }
-            }
-        ]
-    },
     "lint-staged": {
         "*.{ts,tsx,js,jsx}": [
             "eslint --fix",
@@ -105,6 +84,5 @@
         "*.{json,md,css,scss}": [
             "prettier --write"
         ]
-    },
-    "homepage": "https://hellpines.github.io/Module_10"
+    }
 }

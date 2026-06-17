@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getGraphqlUrl } from './getGraphqlUrl';
 
 export const graphqlRequest = async <T>(
     query: string,
@@ -6,7 +7,7 @@ export const graphqlRequest = async <T>(
     token?: string | null
 ): Promise<T> => {
     const response = await axios.post(
-        '/api/graphql',
+        getGraphqlUrl(),
         {
             query,
             variables,

@@ -80,7 +80,8 @@
         font: inherit;
         color: inherit;
 
-        img {
+        img,
+        .avatarPlaceholder {
             width: 24px;
         }
 

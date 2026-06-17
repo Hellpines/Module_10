@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useCallback, useMemo, useState } from 'react';
 import { ProviderProps } from '../types/props/ProviderProps';
 import { NotificationContextParts } from '../types/context/NotificationContextParts';

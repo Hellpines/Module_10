@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
@@ -16,7 +18,7 @@ export const AuthProvider = ({ children }: ProviderProps) => {
     const currentUser = useSelector((state: RootState) => state.auth.currentUser);
     const reduxToken = useSelector((state: RootState) => state.auth.token);
     const token = reduxToken || getAccessToken();
-    const [isAuthLoading, setIsAuthLoading] = useState<boolean>(() => !!getAccessToken());
+    const [isAuthLoading, setIsAuthLoading] = useState<boolean>(true);
 
     const { fetchMe, loginMutation, signUpMutation, signOutMutation, updateProfileMutation } =
         useAuthMutations(token);

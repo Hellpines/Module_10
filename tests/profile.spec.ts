@@ -1,5 +1,11 @@
 import { test, expect } from './helpers/test';
-import { authenticatePage, gotoAppPage, navigateViaAside, clearAuthStorage } from './helpers/auth';
+import {
+    authenticatePage,
+    gotoAppPage,
+    navigateViaAside,
+    clearAuthStorage,
+    waitForAppReady,
+} from './helpers/auth';
 
 test.describe('Profile Page', () => {
     test('should display profile info from current user', async ({ page }) => {
@@ -39,7 +45,10 @@ test.describe('Profile Page', () => {
 
         await navigateViaAside(page, 'Profile');
 
-        await expect(page).toHaveURL(/\/#\/profile/);
+        await expect(page).toHaveURL(/\/profile$/);
+        await expect(page.getByRole('button', { name: 'Profile Info' })).toBeVisible({
+            timeout: 30000,
+        });
         await expect(page.locator('#username')).toHaveValue('helenahills');
     });
 
@@ -49,7 +58,7 @@ test.describe('Profile Page', () => {
 
         await page.getByRole('button', { name: 'logout' }).click();
 
-        await expect(page).toHaveURL(/\/#\/noauth/);
+        await expect(page).toHaveURL(/\/noauth$/);
     });
 
     test('should enable dark theme', async ({ page }) => {
@@ -120,9 +129,11 @@ test.describe('Profile Page', () => {
 
 test.describe('Profile Page — unauthenticated', () => {
     test('should redirect to no-auth when not logged in', async ({ page }) => {
+        await page.goto('/signin', { waitUntil: 'domcontentloaded' });
         await clearAuthStorage(page);
-        await page.goto('/#/profile', { waitUntil: 'domcontentloaded' });
+        await page.goto('/profile', { waitUntil: 'domcontentloaded' });
+        await waitForAppReady(page);
 
-        await expect(page).toHaveURL(/\/#\/noauth/);
+        await expect(page).toHaveURL(/\/noauth$/, { timeout: 30000 });
     });
 });

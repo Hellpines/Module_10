@@ -1,4 +1,6 @@
-import style from '../../pages/mainpages.module.css';
+'use client';
+
+import style from '../../views/mainpages.module.css';
 import { useNotesByStatus } from '../../hooks/useNotesByStatus';
 import Layout from '../Layout/Layout';
 import Button from '../UI/Button/Button';

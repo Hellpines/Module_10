@@ -9,28 +9,32 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock(
-    'react-router-dom',
+    'next/link',
     () => ({
-        NavLink: ({
-            to,
+        __esModule: true,
+        default: ({
+            href,
             children,
             className,
         }: {
-            to: string;
+            href: string;
             children: React.ReactNode;
-            className?: string | ((props: { isActive: boolean }) => string);
-        }) => {
-            const resolvedClass =
-                typeof className === 'function' ? className({ isActive: false }) : className;
-            return (
-                <a href={to} className={resolvedClass}>
-                    {children}
-                </a>
-            );
-        },
+            className?: string;
+        }) => (
+            <a href={href} className={className}>
+                {children}
+            </a>
+        ),
     }),
     { virtual: true }
 );
+
+jest.mock('next/navigation', () => ({
+    usePathname: () => '/',
+    useRouter: () => ({
+        prefetch: jest.fn(),
+    }),
+}));
 
 describe('Aside Component', () => {
     test('renders authorized navigation links', () => {

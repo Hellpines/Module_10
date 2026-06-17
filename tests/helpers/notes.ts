@@ -48,7 +48,9 @@ export async function createNote(page: Page, title: string, content: string) {
     await page.getByRole('button', { name: 'Create a note' }).click();
     await page.locator('#title').fill(title);
     await page.locator('#description').fill(content);
-    await page.getByRole('dialog').getByRole('button', { name: 'Create' }).click();
+    const createButton = page.getByRole('dialog').getByRole('button', { name: 'Create' });
+    await createButton.scrollIntoViewIfNeeded();
+    await createButton.click();
     await expect(page.getByRole('dialog')).not.toBeVisible();
 }
 

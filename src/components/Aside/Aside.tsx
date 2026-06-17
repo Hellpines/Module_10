@@ -1,10 +1,15 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
 import { useTranslation } from 'react-i18next';
+import { AppLink } from '@/components/Navigation/AppLink';
+import { APP_ROUTES, isActiveRoute } from '@/lib/navigation/app-routes';
 import style from './aside.module.css';
 import { AsideProps } from '../../types/props/AsideProps';
+import { usePathname } from 'next/navigation';
 
 function Aside({ pageStatus, className }: AsideProps) {
     const { t } = useTranslation();
+    const pathname = usePathname();
 
     return (
         <aside>
@@ -13,55 +18,77 @@ function Aside({ pageStatus, className }: AsideProps) {
                     {pageStatus === 'Authorized' ? (
                         <>
                             <li>
-                                <NavLink
-                                    to='/'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <AppLink
+                                    href={APP_ROUTES.home}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.home) ? style.active : ''
+                                    }
                                 >
                                     {t('aside.notes')}
-                                </NavLink>
+                                </AppLink>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/profile'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <AppLink
+                                    href={APP_ROUTES.profile}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.profile)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.profile')}
-                                </NavLink>
+                                </AppLink>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/archived'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <AppLink
+                                    href={APP_ROUTES.archived}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.archived)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.archive')}
-                                </NavLink>
+                                </AppLink>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/trash'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <AppLink
+                                    href={APP_ROUTES.trash}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.trash)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.trash')}
-                                </NavLink>
+                                </AppLink>
                             </li>
                         </>
                     ) : (
                         <>
                             <li>
-                                <NavLink
-                                    to='/signin'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <AppLink
+                                    href={APP_ROUTES.signIn}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.signIn)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.signIn')}
-                                </NavLink>
+                                </AppLink>
                             </li>
                             <li>
-                                <NavLink
-                                    to='/signup'
-                                    className={({ isActive }) => (isActive ? style.active : '')}
+                                <AppLink
+                                    href={APP_ROUTES.signUp}
+                                    className={
+                                        isActiveRoute(pathname, APP_ROUTES.signUp)
+                                            ? style.active
+                                            : ''
+                                    }
                                 >
                                     {t('aside.signUp')}
-                                </NavLink>
+                                </AppLink>
                             </li>
                         </>
                     )}

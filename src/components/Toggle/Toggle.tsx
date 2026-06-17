@@ -1,3 +1,5 @@
+'use client';
+
 import { styled } from '@mui/material/styles';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import { ToggleProps } from '../../types/props/ToggleProps';

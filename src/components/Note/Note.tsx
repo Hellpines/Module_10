@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useEffect, memo } from 'react';
 import style from './note.module.css';
 import ActionsMenu from '../ActionsMenu/ActionsMenu';

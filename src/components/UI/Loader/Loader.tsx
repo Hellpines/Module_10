@@ -1,3 +1,5 @@
+'use client';
+
 import CircularProgress from '@mui/material/CircularProgress';
 import styled, { keyframes } from 'styled-components';
 import { LoaderProps } from '../../../types/ui/LoaderProps';

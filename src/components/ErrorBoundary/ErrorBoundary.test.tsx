@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import ErrorBoundary from './ErrorBoundary';
 
-jest.mock('../../pages/Error/Error', () => {
+jest.mock('../../views/Error/Error', () => {
     return function MockErrorPage() {
         return <div data-testid='error-page'>Error Page</div>;
     };

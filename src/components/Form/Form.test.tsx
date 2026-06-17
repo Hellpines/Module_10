@@ -8,11 +8,18 @@ jest.mock('react-i18next', () => ({
     useTranslation: () => ({ t: (key: string) => key }),
 }));
 
+jest.mock('@/components/Navigation/AppLink', () => ({
+    AppLink: ({ href, children }: { href: string; children: React.ReactNode }) => (
+        <a href={href}>{children}</a>
+    ),
+}));
+
 jest.mock(
-    'react-router-dom',
+    'next/link',
     () => ({
-        NavLink: ({ to, children }: { to: string; children: React.ReactNode }) => (
-            <a href={to}>{children}</a>
+        __esModule: true,
+        default: ({ href, children }: { href: string; children: React.ReactNode }) => (
+            <a href={href}>{children}</a>
         ),
     }),
     { virtual: true }

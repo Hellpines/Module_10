@@ -1,1 +1,9 @@
-export const getAccessToken = (): string | null => localStorage.getItem('access_token');
+'use client';
+
+export const getAccessToken = (): string | null => {
+    if (typeof window === 'undefined') {
+        return null;
+    }
+
+    return localStorage.getItem('access_token');
+};

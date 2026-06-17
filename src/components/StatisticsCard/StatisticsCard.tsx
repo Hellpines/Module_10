@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslation } from 'react-i18next';
 import { StatisticsCardProps } from '../../types/props/StatisticsCardProps';
 import style from './statisticscard.module.css';
